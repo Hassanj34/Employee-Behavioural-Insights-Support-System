@@ -1,0 +1,39 @@
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Workload</th>
+        <th>Motivation</th>
+        <th>Learning confidence</th>
+        <th>Latest assessment</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>
+            <a class="person-link" href="{{ url_for('manager.employee_detail', employee_id=row.employee.id) }}">{{ row.employee.name }}</a>
+            <div class="note">{{ row.employee.designation }}</div>
+            {% if filters is defined and filters.has_dates and not row.latest %}
+              <div class="note">No assessment in this date range.</div>
+            {% endif %}
+          </td>
+          {% if row.latest %}
+            <td><span class="status-pill is-{{ classification_key(row.latest.workload_classification) }}">{{ row.latest.workload_classification }}</span></td>
+            <td><span class="status-pill is-{{ classification_key(row.latest.motivation_classification) }}">{{ row.latest.motivation_classification }}</span></td>
+            <td><span class="status-pill is-{{ classification_key(row.latest.learning_classification) }}">{{ row.latest.learning_classification }}</span></td>
+            <td>{{ row.latest.submission_date|shortdate }}</td>
+          {% else %}
+            <td><span class="status-pill is-insufficient">{{ insufficient }}</span></td>
+            <td><span class="status-pill is-insufficient">{{ insufficient }}</span></td>
+            <td><span class="status-pill is-insufficient">{{ insufficient }}</span></td>
+            <td>—</td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="empty">{{ empty_message or "No employees are assigned to you." }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

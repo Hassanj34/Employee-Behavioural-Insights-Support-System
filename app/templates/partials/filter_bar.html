@@ -1,0 +1,57 @@
+<form class="filter-bar no-print" method="get">
+  {% if "q" in fields %}
+    <label class="filter-field grow">
+      <span>Search</span>
+      <input type="search" name="q" value="{{ filters.q }}" placeholder="{{ search_placeholder or 'Search' }}">
+    </label>
+  {% endif %}
+  {% if "dimension" in fields %}
+    <label class="filter-field">
+      <span>Area</span>
+      <select name="dimension">
+        <option value="">Any area</option>
+        {% for key, label in dimension_choices %}
+          <option value="{{ key }}" {% if filters.dimension == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  {% endif %}
+  {% if "classification" in fields %}
+    <label class="filter-field">
+      <span>Classification</span>
+      <select name="classification">
+        <option value="">Any classification</option>
+        {% for label in classification_options|default(classifications, true) %}
+          <option value="{{ label }}" {% if filters.classification == label %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  {% endif %}
+  {% if "status" in fields %}
+    <label class="filter-field">
+      <span>Status</span>
+      <select name="status">
+        <option value="">Any status</option>
+        {% for label in statuses %}
+          <option value="{{ label }}" {% if filters.status == label %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  {% endif %}
+  {% if "dates" in fields %}
+    <label class="filter-field">
+      <span>From</span>
+      <input type="date" name="start" value="{{ filters.start_text }}">
+    </label>
+    <label class="filter-field">
+      <span>To</span>
+      <input type="date" name="end" value="{{ filters.end_text }}">
+    </label>
+  {% endif %}
+  <div class="filter-actions">
+    <button class="btn btn-accent" type="submit">Apply</button>
+    {% if filters.active %}
+      <a class="btn btn-ghost" href="{{ request.path }}">Clear</a>
+    {% endif %}
+  </div>
+</form>

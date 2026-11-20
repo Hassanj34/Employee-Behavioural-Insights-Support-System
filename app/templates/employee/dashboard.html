@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Your support snapshot{% endblock %}
+{% block content %}
+  <div class="theory">
+    Indicators stay separate. A positive reading in one area does not cancel a support need in another. Nothing here is a diagnosis, a rank, or an employment decision.
+  </div>
+  {% if check_in_due %}
+    <div class="alert alert-info">A short check-in about once a week helps your manager see whether support needs are changing.</div>
+  {% endif %}
+  {% with fields=["dates"] %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  {% if filters.has_dates and not latest %}
+    <section class="panel empty-state">
+      <h2>No assessment in this date range.</h2>
+      <p>Try a wider range, or clear the dates to see your latest check-in.</p>
+    </section>
+  {% elif latest %}
+    <p class="note">Latest assessment {{ latest.submission_date|shortdate }}</p>
+    {% include "partials/indicators.html" %}
+    {% if recommendations %}
+      <section class="panel mt-3">
+        <h2>Support suggestions</h2>
+        <ul class="mb-0">
+          {% for item in recommendations %}
+            <li><strong>{{ item.label }}:</strong> {{ item.text }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% else %}
+    <section class="panel empty-state">
+      <h2>No assessment yet</h2>
+      <p>Complete the nine-question check-in. It usually takes two or three minutes.</p>
+      <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">Start assessment</a>
+    </section>
+  {% endif %}
+  <div class="row-actions no-print mt-3">
+    <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">New assessment</a>
+    <a class="btn btn-outline" href="{{ url_for('employee.history') }}">View history</a>
+    <a class="btn btn-outline" href="{{ url_for('employee.complaints') }}">Complaints in progress: {{ open_complaints }}</a>
+  </div>
+{% endblock %}

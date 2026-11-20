@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Employees{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}Employees{% endblock %}
+{% block content %}
+  {% with fields=["q", "dimension", "classification", "dates"], search_placeholder="Name, email, or designation" %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <p class="note">Search covers name, email, designation, and department. A classification applies to the selected area, or to any area when Area is Any.</p>
+  <section class="panel">
+    {% include "partials/employee_table.html" %}
+  </section>
+{% endblock %}

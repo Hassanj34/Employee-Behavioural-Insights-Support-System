@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Alert rules{% endblock %}
+{% block eyebrow %}Senior Manager{% endblock %}
+{% block heading %}Alert rules{% endblock %}
+{% block content %}
+  <section class="panel">
+    <p class="note">These are starting rules for new assessments. They are not diagnostic cut-offs, and they do not rescore assessments already stored. A dimension at or above the positive line is Positive / Balanced. A dimension at or above the attention line, and below the positive line, is Support Recommended and does not open an urgent alert on its own. Anything below the attention line is Attention Required and opens an alert. A drop at least as large as the change amount also opens an alert, even when the new score stays above the attention line.</p>
+    <form method="post" class="settings-form">
+      {{ form.hidden_tag() }}
+      <div class="settings-grid">
+        <div>
+          {{ form.positive_min.label(class="form-label") }}
+          {{ form.positive_min(class="form-control", step="0.01") }}
+          {% for error in form.positive_min.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+        </div>
+        <div>
+          {{ form.support_min.label(class="form-label") }}
+          {{ form.support_min(class="form-control", step="0.01") }}
+          {% for error in form.support_min.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+        </div>
+        <div>
+          {{ form.significant_drop.label(class="form-label") }}
+          {{ form.significant_drop(class="form-control", step="0.01") }}
+          {% for error in form.significant_drop.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+        </div>
+      </div>
+      <button class="btn btn-accent" type="submit">Save alert rules</button>
+    </form>
+    {% if settings.updated_by %}
+      <p class="note mt-3 mb-0">Last saved by {{ settings.updated_by.name }} on {{ settings.updated_at|shortdate }}.</p>
+    {% endif %}
+  </section>
+{% endblock %}

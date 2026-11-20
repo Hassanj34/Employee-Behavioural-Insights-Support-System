@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Manager dashboard{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}Assigned employees{% endblock %}
+{% block content %}
+  <div class="stat-grid">
+    <article class="stat card"><span class="stat-icon"><i class="bi bi-people"></i></span><div><p>Assigned employees</p><strong>{{ team_count }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon is-attention"><i class="bi bi-exclamation-circle"></i></span><div><p>Requiring attention</p><strong>{{ attention_people }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon"><i class="bi bi-bell"></i></span><div><p>Open alerts</p><strong>{{ open_alerts }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon is-support"><i class="bi bi-flag"></i></span><div><p>Support recommended</p><strong>{{ support_indicators }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon"><i class="bi bi-hourglass"></i></span><div><p>Follow-ups pending</p><strong>{{ pending_follow_ups }}</strong></div></article>
+  </div>
+  {% with fields=["q", "dates"], search_placeholder="Name, email, or designation" %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <div class="legend">
+    <span class="status-pill is-positive">Positive / Balanced</span>
+    <span class="status-pill is-support">Support Recommended</span>
+    <span class="status-pill is-attention">Attention Required</span>
+    <span class="status-pill is-insufficient">Insufficient Data</span>
+  </div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Latest indicators</h2>
+      <p class="note">Classifications are read separately. Employees are not ranked. Dates limit which assessment is treated as current.</p>
+    </div>
+    {% include "partials/employee_table.html" %}
+  </section>
+{% endblock %}

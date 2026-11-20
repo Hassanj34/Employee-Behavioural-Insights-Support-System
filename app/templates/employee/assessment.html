@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}New assessment{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Behavioural assessment{% endblock %}
+{% block content %}
+  <p class="note">Answer the nine core questions. If you disagree with a core question, two follow-up questions appear for that area. Higher agreement means a more positive experience. A check-in about once a week is encouraged. Incomplete assessments are not saved.</p>
+  <div class="progress-panel">
+    <div class="progress-meta">
+      <strong id="assessment-progress-label">Section 1 of 3</strong>
+      <span id="assessment-progress-count">0 answered</span>
+    </div>
+    <ol class="stepper" id="assessment-steps">
+      {% for section in sections %}
+        <li {% if loop.first %}class="is-current"{% endif %}>
+          <button type="button" class="step-button">
+            <span class="step-index">{{ loop.index }}</span>
+            <span class="step-copy">
+              <span class="step-kicker">Step {{ loop.index }}</span>
+              <span class="step-label">{{ section.title }}</span>
+            </span>
+          </button>
+        </li>
+      {% endfor %}
+    </ol>
+    <div class="progress mb-0" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="progress-bar" id="assessment-progress" style="width: 0%"></div>
+    </div>
+  </div>
+  <div id="section-error" class="alert alert-danger d-none">Answer every question in this section before continuing.</div>
+  {% if form.errors %}
+    <div class="alert alert-danger">Answer all nine questions before submitting. Nothing was saved.</div>
+  {% endif %}
+  <form id="assessment-form" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {% for section in sections %}
+      <section class="panel" data-section="{{ section.key }}">
+        <h2>{{ section.title }}</h2>
+        <p class="note">{{ section.note }}</p>
+        {% for question in section.questions %}
+          {% set field = form[question.code|lower] %}
+          <div class="question {% if question.follow_up %}d-none{% endif %} {% if field.errors %}is-invalid{% endif %}" data-follow-up="{{ 'true' if question.follow_up else 'false' }}" data-core="{{ 'false' if question.follow_up else 'true' }}">
+            <p>{% if question.follow_up %}Follow-up{% else %}{{ question.code }}{% endif %}. {{ question.text }}</p>
+            <div class="likert">
+              {% for subfield in field %}
+                <label class="likert-option">
+                  {{ subfield(required=false) }}
+                  <span>{{ subfield.label.text }}</span>
+                </label>
+              {% endfor %}
+            </div>
+            {% for error in field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+        {% endfor %}
+      </section>
+    {% endfor %}
+    <div class="row-actions">
+      <button class="btn btn-outline-secondary" id="prev-section" type="button">Previous</button>
+      <button class="btn btn-accent" id="next-section" type="button">Next</button>
+      <button class="btn btn-accent d-none" id="submit-assessment" type="submit">Submit assessment</button>
+    </div>
+  </form>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/assessment.js') }}"></script>
+{% endblock %}

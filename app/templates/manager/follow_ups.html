@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Follow-up actions{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}Follow-up actions{% endblock %}
+{% block content %}
+  <section class="panel">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr><th>Employee</th><th>Dimension</th><th>Action</th><th>Status</th><th>Date</th></tr>
+        </thead>
+        <tbody>
+          {% for action in actions %}
+            <tr>
+              <td>{{ action.alert.employee.name }}</td>
+              <td><a href="{{ url_for('manager.alert_detail', alert_id=action.alert_id) }}">{{ action.alert.dimension }}</a></td>
+              <td>{{ action.action_description }}</td>
+              <td><span class="status-pill is-{{ status_key(action.status) }}">{{ action.status }}</span></td>
+              <td>{{ action.created_at|shortdate }}</td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5" class="empty">No follow-up actions recorded.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

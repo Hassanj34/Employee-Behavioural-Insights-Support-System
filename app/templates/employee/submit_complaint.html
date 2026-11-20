@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Submit a concern{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Submit a concern{% endblock %}
+{% block content %}
+  <section class="panel">
+    <p class="note">Choose HR or a Senior Manager. This record is not used in assessment scoring.</p>
+    <form method="post" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        {{ form.recipient_role.label(class="form-label") }}
+        {{ form.recipient_role(class="form-select") }}
+      </div>
+      <div class="mb-3">
+        {{ form.category.label(class="form-label") }}
+        {{ form.category(class="form-select") }}
+      </div>
+      <div class="mb-3">
+        {{ form.subject.label(class="form-label") }}
+        {{ form.subject(class="form-control") }}
+        {% for error in form.subject.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="mb-3">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control") }}
+        {% for error in form.description.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+      </div>
+      <button class="btn btn-accent" type="submit">Submit complaint</button>
+    </form>
+  </section>
+{% endblock %}

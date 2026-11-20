@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Complaint #{{ complaint.id }}{% endblock %}
+{% block eyebrow %}HR{% endblock %}
+{% block heading %}{{ complaint.subject }}{% endblock %}
+{% block content %}
+  {% include "partials/complaint_manage.html" %}
+{% endblock %}

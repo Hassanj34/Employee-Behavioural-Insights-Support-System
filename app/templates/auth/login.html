@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · EBISS</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="login-screen">
+    <section class="login-story">
+      <p class="eyebrow">Employee Behavioural Insights &amp; Support System</p>
+      <h1>See support needs before they become workplace problems.</h1>
+      <p>Periodic self-reports on workload, motivation, and learning confidence are classified separately with transparent rules. This is a managerial support tool, not a performance rating.</p>
+      <ul class="login-points">
+        <li>Workload manageability and time pressure</li>
+        <li>Motivation through recognition, autonomy, and relatedness</li>
+        <li>Learning confidence for new responsibilities</li>
+      </ul>
+    </section>
+    <section class="login-panel">
+      <div class="card login-card">
+        <h2>Sign in</h2>
+        {% include "partials/flashes.html" %}
+        <form method="post" novalidate>
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", id="login-email") }}
+            {% for error in form.email.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            <div class="password-field">
+              {{ form.password(class="form-control", id="login-password") }}
+              <button class="btn btn-ghost" id="toggle-password" type="button">Show</button>
+            </div>
+            {% for error in form.password.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+          <button class="btn btn-accent w-100" type="submit">Sign in</button>
+        </form>
+        <div class="demo-box">
+          <strong>Demonstration accounts</strong>
+          <p class="mb-1 mt-2">Systems Limited, Karachi. Password for every account: <code>Demo@2026</code></p>
+          <div class="account-grid">
+            <button type="button" class="account-chip" data-email="ayesha.khan@systems.local"><strong>Ayesha Khan</strong><span>ayesha.khan@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="bilal.ahmed@systems.local"><strong>Bilal Ahmed</strong><span>bilal.ahmed@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="fatima.siddiqui@systems.local"><strong>Fatima Siddiqui</strong><span>fatima.siddiqui@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="sana.iqbal@systems.local"><strong>Sana Iqbal</strong><span>sana.iqbal@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="saad.malik@systems.local"><strong>Saad Malik</strong><span>saad.malik@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="imran.sheikh@systems.local"><strong>Imran Sheikh</strong><span>imran.sheikh@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="hira.baig@systems.local"><strong>Hira Baig</strong><span>hira.baig@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="nadia.hussain@systems.local"><strong>Nadia Hussain</strong><span>nadia.hussain@systems.local</span></button>
+            <button type="button" class="account-chip" data-email="zara.qureshi@systems.local"><strong>Zara Qureshi</strong><span>zara.qureshi@systems.local</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    (function () {
+      const email = document.getElementById("login-email");
+      const password = document.getElementById("login-password");
+      document.querySelectorAll(".account-chip").forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          email.value = chip.getAttribute("data-email");
+          password.value = "Demo@2026";
+          password.focus();
+        });
+      });
+      const toggle = document.getElementById("toggle-password");
+      toggle.addEventListener("click", function () {
+        const visible = password.type === "text";
+        password.type = visible ? "password" : "text";
+        toggle.textContent = visible ? "Show" : "Hide";
+      });
+    })();
+  </script>
+</body>
+</html>

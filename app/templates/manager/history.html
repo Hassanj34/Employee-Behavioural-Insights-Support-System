@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}History · {{ employee.name }}{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}History · {{ employee.name }}{% endblock %}
+{% block content %}
+  {% with print_title=employee.name, print_subtitle="Separate lines show whether reported workload, motivation, and learning confidence are rising, falling, or holding steady." %}
+    {% include "partials/print_heading.html" %}
+  {% endwith %}
+  <div class="panel-head no-print">
+    <p class="note">Separate lines show whether reported workload, motivation, and learning confidence are rising, falling, or holding steady.</p>
+    <button class="btn btn-outline" type="button" onclick="window.print()">Print summary</button>
+  </div>
+  {% with fields=["dates"] %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  {% include "partials/charts.html" %}
+  <section class="panel">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr><th>Date</th><th>Workload</th><th>Motivation</th><th>Learning confidence</th></tr>
+        </thead>
+        <tbody>
+          {% for item in assessments %}
+            <tr>
+              <td>{{ item.submission_date|shortdate }}</td>
+              <td>{{ item.workload_score|score }} · {{ item.workload_classification }}</td>
+              <td>{{ item.motivation_score|score }} · {{ item.motivation_classification }}</td>
+              <td>{{ item.learning_score|score }} · {{ item.learning_classification }}</td>
+            </tr>
+          {% else %}
+            <tr><td colspan="4" class="empty">{% if filters.has_dates %}No assessments in this date range.{% else %}No assessments yet.{% endif %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='vendor/chartjs/chart.umd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}

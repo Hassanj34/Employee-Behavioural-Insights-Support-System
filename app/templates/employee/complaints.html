@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}My complaints{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}My complaints{% endblock %}
+{% block content %}
+  <p class="note">Complaints are separate from behavioural assessments. Your manager does not see them through this system.</p>
+  <p class="no-print"><a class="btn btn-accent" href="{{ url_for('employee.submit_complaint') }}">Submit a concern</a></p>
+  {% with fields=["status", "dates"], statuses=complaint_statuses %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <section class="panel">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr><th>Complaint</th><th>Recipient</th><th>Date</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for complaint in complaints %}
+            <tr>
+              <td><a href="{{ url_for('employee.complaint_detail', complaint_id=complaint.id) }}">{{ complaint.subject }}</a></td>
+              <td>{{ recipient_labels[complaint.recipient_role] }}</td>
+              <td>{{ complaint.created_at|shortdate }}</td>
+              <td><span class="status-pill is-{{ status_key(complaint.status) }}">{{ complaint.status }}</span></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="4" class="empty">{% if filters.active %}No complaints match these filters.{% else %}You have not submitted a complaint.{% endif %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

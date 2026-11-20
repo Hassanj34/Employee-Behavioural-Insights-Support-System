@@ -1,0 +1,10 @@
+<div class="indicator-grid">
+  {% for item in indicators %}
+    <article class="indicator card is-{{ classification_key(item.classification) }}">
+      <p class="label">{{ item.label }}</p>
+      <p class="score">{{ item.score|score }}</p>
+      <span class="status-pill is-{{ classification_key(item.classification) }}">{{ item.classification }}</span>
+      <p class="explain">{{ item.explanation }}</p>
+    </article>
+  {% endfor %}
+</div>

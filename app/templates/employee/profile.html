@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Profile{% endblock %}
+{% block content %}
+  <section class="panel">
+    <dl class="meta">
+      <dt>Name</dt><dd>{{ current_user.name }}</dd>
+      <dt>Email</dt><dd>{{ current_user.email }}</dd>
+      <dt>Department</dt><dd>{{ current_user.department or "—" }}</dd>
+      <dt>Designation</dt><dd>{{ current_user.designation or "—" }}</dd>
+      <dt>Manager</dt><dd>{{ current_user.manager.name if current_user.manager else "—" }}</dd>
+    </dl>
+  </section>
+{% endblock %}

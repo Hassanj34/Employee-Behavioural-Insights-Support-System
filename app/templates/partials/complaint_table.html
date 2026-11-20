@@ -1,0 +1,30 @@
+{% macro complaint_rows(complaints, detail_endpoint, filtered=false) %}
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Employee</th>
+          <th>Category</th>
+          <th>Subject</th>
+          <th>Submitted</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for complaint in complaints %}
+          <tr>
+            <td><a href="{{ url_for(detail_endpoint, complaint_id=complaint.id) }}">#{{ complaint.id }}</a></td>
+            <td>{{ complaint.employee.name }}</td>
+            <td>{{ complaint.category }}</td>
+            <td>{{ complaint.subject }}</td>
+            <td>{{ complaint.created_at|shortdate }}</td>
+            <td><span class="status-pill is-{{ status_key(complaint.status) }}">{{ complaint.status }}</span></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="empty">{% if filtered %}No complaints match these filters.{% else %}No complaints in this queue.{% endif %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endmacro %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Alerts{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}Alerts{% endblock %}
+{% block content %}
+  <p class="note">An alert opens when a dimension is below {{ settings.support_min|score }}, or when a score falls by {{ settings.significant_drop|score }} or more since the previous check-in. Support Recommended stays visible without an urgent alert unless that drop is reached.</p>
+  {% with fields=["q", "dimension", "classification", "status", "dates"], search_placeholder="Employee name or email", statuses=alert_statuses, classification_options=alert_classifications %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <section class="panel">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Dimension</th>
+            <th>Classification</th>
+            <th>Date</th>
+            <th>Follow-up</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for alert in alerts %}
+            <tr>
+              <td><a href="{{ url_for('manager.alert_detail', alert_id=alert.id) }}">{{ alert.employee.name }}</a></td>
+              <td>{{ alert.dimension }}</td>
+              <td><span class="status-pill is-attention">{{ alert.classification }}</span></td>
+              <td>{{ alert.created_at|shortdate }}</td>
+              <td><span class="status-pill is-{{ status_key(alert.status) }}">{{ alert.status }}</span></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5" class="empty">{% if filters.active %}No alerts match these filters.{% else %}No alerts.{% endif %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}

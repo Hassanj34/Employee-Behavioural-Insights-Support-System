@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Complaints{% endblock %}
+{% block eyebrow %}Senior Manager{% endblock %}
+{% block heading %}Complaints{% endblock %}
+{% block content %}
+  {% with fields=["q", "status", "dates"], search_placeholder="Employee, subject, or category", statuses=complaint_statuses %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <section class="panel">
+    {% from "partials/complaint_table.html" import complaint_rows with context %}
+    {{ complaint_rows(complaints, "senior_manager.complaint_detail", filters.active) }}
+  </section>
+{% endblock %}

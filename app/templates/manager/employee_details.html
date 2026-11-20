@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}{{ employee.name }}{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}{{ employee.name }}{% endblock %}
+{% block content %}
+  {% with print_title=employee.name, print_subtitle="Latest support indicators for " ~ (employee.designation or "this employee") ~ ". These are not a performance rating." %}
+    {% include "partials/print_heading.html" %}
+  {% endwith %}
+  <div class="row-actions no-print mb-3">
+    <button class="btn btn-outline" type="button" onclick="window.print()">Print summary</button>
+    <a class="btn btn-outline" href="{{ url_for('manager.employee_history', employee_id=employee.id) }}">Trend history</a>
+  </div>
+  <section class="panel">
+    <dl class="meta">
+      <dt>Department</dt><dd>{{ employee.department or "—" }}</dd>
+      <dt>Designation</dt><dd>{{ employee.designation or "—" }}</dd>
+      <dt>Latest assessment</dt><dd>{{ latest.submission_date|shortdate if latest else "—" }}</dd>
+    </dl>
+  </section>
+  {% if indicators %}
+    {% include "partials/indicators.html" %}
+    {% if recommendations %}
+      <section class="panel mt-3">
+        <h2>Suggested next conversations</h2>
+        <ul class="mb-0">
+          {% for item in recommendations %}
+            <li><strong>{{ item.label }}:</strong> {{ item.text }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+  {% else %}
+    <section class="panel empty">This employee has not completed an assessment.</section>
+  {% endif %}
+  {% if responses %}
+    <section class="panel mt-3">
+      <h2>Latest questionnaire responses</h2>
+      <div class="table-responsive">
+        <table class="table">
+          <thead><tr><th>Question</th><th>Response</th></tr></thead>
+          <tbody>
+            {% for code, question in questions.items() %}
+              {% if code in responses %}
+              <tr>
+                <td>{{ code }}. {{ question.text }}</td>
+                <td>{{ likert_labels[responses[code]] }} ({{ responses[code] }})</td>
+              </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endif %}
+  <section class="panel">
+    <h2>Active and earlier alerts</h2>
+    {% if alerts %}
+      <ul>
+        {% for alert in alerts %}
+          <li>
+            <a href="{{ url_for('manager.alert_detail', alert_id=alert.id) }}">{{ alert.dimension }} · {{ alert.classification }}</a>
+            <span class="note">· {{ alert.created_at|shortdate }} · {{ alert.status }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="note mb-0">No attention alerts for this employee.</p>
+    {% endif %}
+    <a href="{{ url_for('manager.employee_history', employee_id=employee.id) }}">Open the full trend history</a>
+  </section>
+  {% include "partials/charts.html" %}
+  <section class="panel">
+    <h2>Follow-up actions</h2>
+    {% for action in follow_ups %}
+      <article class="mb-3">
+        <strong>{{ action.status }}</strong>
+        <span class="note">· {{ action.created_at|shortdate }} · {{ action.alert.dimension }}</span>
+        <p class="mb-1">{{ action.action_description }}</p>
+        {% if action.remarks %}<p class="note mb-0">{{ action.remarks }}</p>{% endif %}
+      </article>
+    {% else %}
+      <p class="note mb-0">No follow-up has been recorded yet.</p>
+    {% endfor %}
+  </section>
+  <p class="disclaimer">These indicators are based on the employee's self-reported responses. They are a prompt for a supportive conversation, not a performance rating or an automated employment decision.</p>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='vendor/chartjs/chart.umd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}

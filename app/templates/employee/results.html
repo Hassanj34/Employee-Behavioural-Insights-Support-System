@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Assessment results{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Assessment results{% endblock %}
+{% block content %}
+  {% with print_title=current_user.name, print_subtitle="Submitted " ~ (assessment.submission_date|shortdate) ~ ". The three indicators are independent. There is no combined score." %}
+    {% include "partials/print_heading.html" %}
+  {% endwith %}
+  <div class="panel-head no-print">
+    <p class="note">Submitted {{ assessment.submission_date|shortdate }}. The three indicators are independent. There is no combined score.</p>
+    <button class="btn btn-outline" type="button" onclick="window.print()">Print summary</button>
+  </div>
+  {% include "partials/indicators.html" %}
+  {% if recommendations %}
+    <section class="panel mt-3">
+      <h2>Suggested next conversations</h2>
+      <ul class="mb-0">
+        {% for item in recommendations %}
+          <li><strong>{{ item.label }}:</strong> {{ item.text }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+  <section class="panel">
+    <h2>Your answers</h2>
+    <div class="table-responsive">
+      <table class="table">
+        <thead><tr><th>Question</th><th>Response</th></tr></thead>
+        <tbody>
+          {% set answers = assessment.response_map() %}
+          {% for code, question in questions.items() %}
+            {% if code in answers %}
+            <tr>
+              <td>{{ code }}. {{ question.text }}</td>
+              <td>{{ likert_labels[answers[code]] }} ({{ answers[code] }})</td>
+            </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <p class="disclaimer">These indicators are based on your self-reported responses. They are not a psychological diagnosis, a performance rating, or an employment decision.</p>
+  <a class="btn btn-outline no-print" href="{{ url_for('employee.history') }}">View history</a>
+{% endblock %}

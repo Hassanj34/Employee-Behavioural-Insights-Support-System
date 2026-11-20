@@ -1,0 +1,19 @@
+{% if chart.labels %}
+  <div class="chart-grid">
+    <section class="panel">
+      <h2>Workload</h2>
+      <div class="chart-box"><canvas id="workloadChart"></canvas></div>
+    </section>
+    <section class="panel">
+      <h2>Motivation</h2>
+      <div class="chart-box"><canvas id="motivationChart"></canvas></div>
+    </section>
+    <section class="panel">
+      <h2>Learning confidence</h2>
+      <div class="chart-box"><canvas id="learningChart"></canvas></div>
+    </section>
+  </div>
+  <script id="trend-data" type="application/json">{{ chart|tojson }}</script>
+{% else %}
+  <div class="panel empty">{% if filters is defined and filters.has_dates %}No assessments in this date range.{% else %}No completed assessments yet.{% endif %}</div>
+{% endif %}

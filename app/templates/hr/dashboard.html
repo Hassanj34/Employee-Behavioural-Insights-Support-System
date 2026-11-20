@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}HR dashboard{% endblock %}
+{% block eyebrow %}HR{% endblock %}
+{% block heading %}HR complaint queue{% endblock %}
+{% block content %}
+  <div class="stat-grid">
+    <article class="stat card"><span class="stat-icon"><i class="bi bi-inboxes"></i></span><div><p>Total</p><strong>{{ counts.total }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon is-support"><i class="bi bi-envelope"></i></span><div><p>Submitted</p><strong>{{ counts["Submitted"] }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon is-attention"><i class="bi bi-search"></i></span><div><p>Under review</p><strong>{{ counts["Under Review"] }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon is-positive"><i class="bi bi-check2-circle"></i></span><div><p>Resolved</p><strong>{{ counts["Resolved"] }}</strong></div></article>
+    <article class="stat card"><span class="stat-icon"><i class="bi bi-archive"></i></span><div><p>Closed</p><strong>{{ counts["Closed"] }}</strong></div></article>
+  </div>
+  {% with fields=["q", "status", "dates"], search_placeholder="Employee, subject, or category", statuses=complaint_statuses %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <section class="panel">
+    <p class="note">Only complaints routed to your account are listed. Assessment results are not part of this queue. Counts follow the current filters.</p>
+    {% from "partials/complaint_table.html" import complaint_rows with context %}
+    {{ complaint_rows(complaints, "hr.complaint_detail", filters.active) }}
+  </section>
+{% endblock %}

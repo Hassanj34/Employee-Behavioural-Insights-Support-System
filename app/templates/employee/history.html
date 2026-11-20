@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Assessment history{% endblock %}
+{% block eyebrow %}Employee{% endblock %}
+{% block heading %}Assessment history{% endblock %}
+{% block content %}
+  {% with print_title=current_user.name, print_subtitle="Historical indicators. Each dimension stays separate. This is not a performance rating." %}
+    {% include "partials/print_heading.html" %}
+  {% endwith %}
+  <div class="panel-head no-print">
+    <p class="note">Each line is one dimension over time. Scores run from 1 to 5. Earlier submissions stay on record.</p>
+    <button class="btn btn-outline" type="button" onclick="window.print()">Print summary</button>
+  </div>
+  {% with fields=["dates"] %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  {% include "partials/charts.html" %}
+  <section class="panel">
+    <h2>All submissions</h2>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Workload</th>
+            <th>Motivation</th>
+            <th>Learning confidence</th>
+            <th class="no-print"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in assessments %}
+            <tr>
+              <td>{{ item.submission_date|shortdate }}</td>
+              <td>{{ item.workload_score|score }} · {{ item.workload_classification }}</td>
+              <td>{{ item.motivation_score|score }} · {{ item.motivation_classification }}</td>
+              <td>{{ item.learning_score|score }} · {{ item.learning_classification }}</td>
+              <td class="no-print"><a href="{{ url_for('employee.results', assessment_id=item.id) }}">Open</a></td>
+            </tr>
+          {% else %}
+            <tr><td colspan="5" class="empty">{% if filters.has_dates %}No assessments in this date range.{% else %}No assessments yet.{% endif %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
+{% block scripts %}
+  <script src="{{ url_for('static', filename='vendor/chartjs/chart.umd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}

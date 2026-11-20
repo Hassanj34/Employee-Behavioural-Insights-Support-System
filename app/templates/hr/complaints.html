@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}HR complaints{% endblock %}
+{% block eyebrow %}HR{% endblock %}
+{% block heading %}Complaints{% endblock %}
+{% block content %}
+  {% with fields=["q", "status", "dates"], search_placeholder="Employee, subject, or category", statuses=complaint_statuses %}
+    {% include "partials/filter_bar.html" %}
+  {% endwith %}
+  <section class="panel">
+    {% from "partials/complaint_table.html" import complaint_rows with context %}
+    {{ complaint_rows(complaints, "hr.complaint_detail", filters.active) }}
+  </section>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Alert{% endblock %}
+{% block eyebrow %}Manager{% endblock %}
+{% block heading %}{{ alert.dimension }} alert{% endblock %}
+{% block content %}
+  <section class="panel">
+    <dl class="meta">
+      <dt>Employee</dt><dd><a href="{{ url_for('manager.employee_detail', employee_id=alert.employee_id) }}">{{ alert.employee.name }}</a></dd>
+      <dt>Dimension</dt><dd>{{ alert.dimension }}</dd>
+      <dt>Score</dt><dd>{{ alert.score|score }}</dd>
+      <dt>Classification</dt><dd><span class="status-pill is-{{ classification_key(alert.classification) }}">{{ alert.classification }}</span></dd>
+      <dt>Follow-up status</dt><dd><span class="status-pill is-{{ status_key(alert.status) }}">{{ alert.status }}</span></dd>
+      <dt>Created</dt><dd>{{ alert.created_at|shortdate }}</dd>
+    </dl>
+    <h2 class="mt-3">Why this alert was generated</h2>
+    <p>{{ alert.explanation }}</p>
+    <h2>Suggested action</h2>
+    <p class="mb-0">{{ alert.recommendation }}</p>
+    {% if later %}
+      <p class="later-reading">The next check-in on {{ later.date|shortdate }} scored {{ later.score|score }} ({{ later.classification }}). This alert was {{ alert.score|score }}.</p>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <h2>Record a follow-up</h2>
+    <form method="post" action="{{ url_for('manager.record_follow_up', alert_id=alert.id) }}">
+      {{ form.hidden_tag() }}
+      <div class="mb-3">
+        {{ form.action_description.label(class="form-label") }}
+        {{ form.action_description(class="form-control") }}
+        {% for error in form.action_description.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+      </div>
+      <div class="mb-3">
+        {{ form.remarks.label(class="form-label") }}
+        {{ form.remarks(class="form-control") }}
+      </div>
+      <div class="mb-3">
+        {{ form.status.label(class="form-label") }}
+        {{ form.status(class="form-select") }}
+      </div>
+      <button class="btn btn-accent" type="submit">Record follow-up</button>
+    </form>
+  </section>
+  <section class="panel">
+    <h2>Was this follow-up useful?</h2>
+    {% for action in alert.follow_ups %}
+      <article class="review-card">
+        <div class="panel-head">
+          <div>
+            <strong>{{ action.status }}</strong>
+            <span class="note">· {{ action.created_at|shortdate }}</span>
+            <p class="mb-1">{{ action.action_description }}</p>
+            {% if action.remarks %}<p class="note mb-0">{{ action.remarks }}</p>{% endif %}
+          </div>
+          {% if action.usefulness %}
+            <span class="status-pill is-{{ 'positive' if action.usefulness == 'Useful' else 'support' if action.usefulness == 'Partly useful' else 'attention' }}">{{ action.usefulness }}</span>
+          {% else %}
+            <span class="status-pill is-insufficient">Not reviewed</span>
+          {% endif %}
+        </div>
+        {% if action.usefulness_note %}<p class="note">{{ action.usefulness_note }}</p>{% endif %}
+        <form method="post" action="{{ url_for('manager.review_follow_up', alert_id=alert.id, action_id=action.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="review-form">
+            <label>
+              <span>Usefulness</span>
+              <select name="usefulness">
+                {% for choice in usefulness_choices %}
+                  <option value="{{ choice }}" {% if action.usefulness == choice %}selected{% endif %}>{{ choice }}</option>
+                {% endfor %}
+              </select>
+            </label>
+            <label class="grow">
+              <span>Review note</span>
+              <input type="text" name="usefulness_note" value="{{ action.usefulness_note or '' }}" maxlength="5000" placeholder="What changed after this follow-up?">
+            </label>
+            <button class="btn btn-accent" type="submit">Save review</button>
+          </div>
+        </form>
+      </article>
+    {% else %}
+      <p class="note mb-0">Record a follow-up before reviewing whether it helped.</p>
+    {% endfor %}
+  </section>
+{% endblock %}
