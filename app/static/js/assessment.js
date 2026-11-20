@@ -27,19 +27,44 @@
     return applicableQuestions(section).every(questionAnswered);
   }
 
+  const faces = { "1": "😣", "2": "😕", "3": "😐", "4": "🙂", "5": "😄" };
+  const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function pop(origin, emoji) {
+    if (!motionOk || !origin) return;
+    const bubble = document.createElement("span");
+    bubble.className = "answer-pop";
+    bubble.textContent = emoji;
+    bubble.setAttribute("aria-hidden", "true");
+    const rect = origin.getBoundingClientRect();
+    bubble.style.left = rect.left + rect.width / 2 + "px";
+    bubble.style.top = rect.top + "px";
+    document.body.appendChild(bubble);
+    bubble.addEventListener("animationend", function () {
+      bubble.remove();
+    });
+  }
+
   function refreshFollowUps(section) {
     const coreAnswers = Array.from(section.querySelectorAll('[data-core="true"] input[type=radio]:checked'));
     const showFollowUps = coreAnswers.some(function (input) {
       return Number(input.value) <= 2;
     });
+    const note = section.querySelector(".follow-up-note");
+    const wasHidden = note ? note.classList.contains("d-none") : true;
     section.querySelectorAll('[data-follow-up="true"]').forEach(function (question) {
       question.classList.toggle("d-none", !showFollowUps);
       if (!showFollowUps) {
         question.querySelectorAll("input[type=radio]").forEach(function (input) {
           input.checked = false;
         });
+        question.classList.remove("is-answered");
       }
     });
+    if (note) {
+      note.classList.toggle("d-none", !showFollowUps);
+      if (showFollowUps && wasHidden) pop(note, "💬");
+    }
   }
 
   function updateProgress() {
@@ -57,6 +82,13 @@
     if (bar.parentElement) bar.parentElement.setAttribute("aria-valuenow", String(percent));
     label.textContent = "Section " + (index + 1) + " of " + sections.length;
     if (count) count.textContent = answered + " of " + total + " answered";
+    const cheer = document.getElementById("assessment-cheer");
+    if (!cheer) return;
+    const currentDone = sectionComplete(sections[index]);
+    if (!answered) cheer.textContent = "Start wherever feels true";
+    else if (answered === total) cheer.textContent = "Ready when you are ✨";
+    else if (currentDone) cheer.textContent = "This section is done 👏";
+    else cheer.textContent = "Nice, keep going";
   }
 
   function show(nextIndex) {
@@ -103,9 +135,25 @@
   });
 
   form.addEventListener("change", function (event) {
-    const section = event.target.closest("[data-section]");
+    const input = event.target;
+    if (input.type !== "radio") return;
+    const question = input.closest(".question");
+    const section = input.closest("[data-section]");
+    const wasComplete = section ? section.dataset.complete === "true" : false;
+    if (question) {
+      question.classList.remove("is-answered");
+      void question.offsetWidth;
+      question.classList.add("is-answered");
+      pop(input.closest(".likert-option"), faces[input.value] || "✨");
+    }
     if (section) refreshFollowUps(section);
     updateProgress();
+    if (section && sectionComplete(section) && !wasComplete) {
+      section.dataset.complete = "true";
+      pop(document.getElementById("assessment-progress"), "🎉");
+    } else if (section && !sectionComplete(section)) {
+      delete section.dataset.complete;
+    }
   });
 
   form.addEventListener("submit", function (event) {

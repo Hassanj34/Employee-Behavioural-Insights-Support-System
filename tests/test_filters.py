@@ -7,6 +7,15 @@ from tests.conftest import add_user, login
 from tests.test_assessments import LOW_WORKLOAD, WORKLOAD_HIGH, WORKLOAD_LOW
 
 
+def _without_notifications(response):
+    html = response.get_data(as_text=True)
+    start = html.find('<div class="notify">')
+    end = html.find('<span class="avatar"')
+    if start != -1 and end != -1:
+        html = html[:start] + html[end:]
+    return html.encode()
+
+
 def test_employee_search_and_classification_filter(client, ctx):
     manager = add_user("Manager One", "manager.one@ebiss.local", "manager")
     add_user("Employee Two", "employee.two@ebiss.local", "employee", manager)
@@ -18,17 +27,17 @@ def test_employee_search_and_classification_filter(client, ctx):
 
     by_name = client.get("/manager/employees", query_string={"q": "Quiet"})
     assert b"Quiet Person" in by_name.data
-    assert b"Employee Two" not in by_name.data
+    assert b"Employee Two" not in _without_notifications(by_name)
 
     by_role = client.get("/manager/employees", query_string={"q": "Researcher"})
     assert b"Quiet Person" in by_role.data
-    assert b"Employee Two" not in by_role.data
+    assert b"Employee Two" not in _without_notifications(by_role)
 
     hidden = client.get(
         "/manager/employees",
         query_string={"dimension": "workload", "classification": "Positive / Balanced"},
     )
-    assert b"Employee Two" not in hidden.data
+    assert b"Employee Two" not in _without_notifications(hidden)
     assert b"No employees match these filters." in hidden.data
 
     shown = client.get(
@@ -43,7 +52,7 @@ def test_alert_filters_by_area_classification_and_status(client, ctx):
     login(client, "manager.one@ebiss.local")
 
     other_area = client.get("/manager/alerts", query_string={"dimension": "learning"})
-    assert b"Employee Two" not in other_area.data
+    assert b"Employee Two" not in _without_notifications(other_area)
     assert b"No alerts match these filters." in other_area.data
     assert b"Learning Confidence" not in other_area.data
 
@@ -52,7 +61,7 @@ def test_alert_filters_by_area_classification_and_status(client, ctx):
     assert b"Workload" in attention.data
 
     positive = client.get("/manager/alerts", query_string={"classification": "Positive / Balanced"})
-    assert b"Employee Two" not in positive.data
+    assert b"Employee Two" not in _without_notifications(positive)
 
     open_only = client.get("/manager/alerts", query_string={"status": "Open"})
     assert b"Employee Two" in open_only.data

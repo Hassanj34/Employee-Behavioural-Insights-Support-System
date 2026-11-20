@@ -7,7 +7,10 @@
   <div class="progress-panel">
     <div class="progress-meta">
       <strong id="assessment-progress-label">Section 1 of 3</strong>
-      <span id="assessment-progress-count">0 answered</span>
+      <span class="progress-status">
+        <span id="assessment-progress-count">0 answered</span>
+        <span id="assessment-cheer" aria-live="polite"></span>
+      </span>
     </div>
     <ol class="stepper" id="assessment-steps">
       {% for section in sections %}
@@ -16,7 +19,7 @@
             <span class="step-index">{{ loop.index }}</span>
             <span class="step-copy">
               <span class="step-kicker">Step {{ loop.index }}</span>
-              <span class="step-label">{{ section.title }}</span>
+              <span class="step-label">{% if section.key == "workload" %}⏱️{% elif section.key == "motivation" %}✨{% else %}🌱{% endif %} {{ section.title }}</span>
             </span>
           </button>
         </li>
@@ -34,8 +37,9 @@
     {{ form.hidden_tag() }}
     {% for section in sections %}
       <section class="panel" data-section="{{ section.key }}">
-        <h2>{{ section.title }}</h2>
+        <h2>{% if section.key == "workload" %}⏱️{% elif section.key == "motivation" %}✨{% else %}🌱{% endif %} {{ section.title }}</h2>
         <p class="note">{{ section.note }}</p>
+        <p class="follow-up-note d-none">💬 Two extra questions opened for this area.</p>
         {% for question in section.questions %}
           {% set field = form[question.code|lower] %}
           <div class="question {% if question.follow_up %}d-none{% endif %} {% if field.errors %}is-invalid{% endif %}" data-follow-up="{{ 'true' if question.follow_up else 'false' }}" data-core="{{ 'false' if question.follow_up else 'true' }}">
@@ -44,6 +48,8 @@
               {% for subfield in field %}
                 <label class="likert-option">
                   {{ subfield(required=false) }}
+                  {% set choice = subfield._value()|string %}
+                  <span class="likert-face" aria-hidden="true">{% if choice == "1" %}😣{% elif choice == "2" %}😕{% elif choice == "3" %}😐{% elif choice == "4" %}🙂{% else %}😄{% endif %}</span>
                   <span>{{ subfield.label.text }}</span>
                 </label>
               {% endfor %}

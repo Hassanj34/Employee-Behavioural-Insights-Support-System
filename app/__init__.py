@@ -8,6 +8,20 @@ from app.services.assessment_engine import SIGNIFICANT, classification_key
 from config import Config
 
 
+def _add_notification_cleared_column():
+    """Keep databases created before cleared notifications had that column."""
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(db.engine)
+    if "notifications" not in inspector.get_table_names():
+        return
+    columns = {column["name"] for column in inspector.get_columns("notifications")}
+    if "cleared_at" in columns:
+        return
+    with db.engine.begin() as connection:
+        connection.execute(text("ALTER TABLE notifications ADD COLUMN cleared_at DATETIME"))
+
+
 def create_app(config_class=Config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_class)
@@ -26,12 +40,14 @@ def create_app(config_class=Config):
     from app.employee.routes import employee_bp
     from app.hr.routes import hr_bp
     from app.manager.routes import manager_bp
+    from app.notifications.routes import notifications_bp
     from app.senior_manager.routes import senior_manager_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(employee_bp, url_prefix="/employee")
     app.register_blueprint(manager_bp, url_prefix="/manager")
     app.register_blueprint(hr_bp, url_prefix="/hr")
+    app.register_blueprint(notifications_bp)
     app.register_blueprint(senior_manager_bp, url_prefix="/senior-manager")
 
     @app.template_filter("score")
@@ -49,6 +65,14 @@ def create_app(config_class=Config):
     @app.template_filter("initials")
     def initials_filter(value):
         return initials(value)
+
+    @app.context_processor
+    def inject_notifications():
+        if not current_user.is_authenticated:
+            return {"notifications": []}
+        from app.services.notifications import notifications_for
+
+        return {"notifications": notifications_for(current_user)}
 
     @app.context_processor
     def inject_labels():
@@ -82,5 +106,6 @@ def create_app(config_class=Config):
         from app import models  # noqa: F401
 
         db.create_all()
+        _add_notification_cleared_column()
 
     return app

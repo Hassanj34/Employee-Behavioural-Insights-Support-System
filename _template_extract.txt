@@ -1,0 +1,465 @@
+=== ZIP FILES ===
+[Content_Types].xml
+_rels/.rels
+docProps/core.xml
+docProps/app.xml
+word/document.xml
+word/_rels/document.xml.rels
+word/styles.xml
+word/stylesWithEffects.xml
+word/settings.xml
+word/webSettings.xml
+word/fontTable.xml
+word/theme/theme1.xml
+customXml/item1.xml
+customXml/_rels/item1.xml.rels
+customXml/itemProps1.xml
+word/numbering.xml
+docProps/thumbnail.jpeg
+=== DOCUMENT ===
+[P 0 style=Title] PROJECT REPORT TEMPLATE
+[P 1 style=] Employee Behavioural Insights & Support System | Submission format aligned with project brief
+[P 2 style=Heading1] Cover page
+[P 3 style=] [University / Department]
+[P 4 style=] [Course title and code]
+[P 5 style=] Project Title: Employee Behavioural Insights & Support System
+[P 6 style=] Submitted To: [Teacher's name]
+[P 7 style=] Submitted By: [Group number and member names / IDs]
+[P 8 style=] Submission Date: [Date]
+[P 9 style=Heading1] Document control
+[TABLE 10]
+  R0: Version || Date || Prepared by || Description
+  R1: 1.0 || [Date] || [Team] || Initial submission
+  R2: 1.1 || [Date] || [Team] || [Revision summary]
+[END TABLE]
+[P 11 style=Heading1] Executive summary
+[P 12 style=] [Write 150–250 words after implementation. Summarize the problem, solution, target users, main features, analytical/alert capability, technology, testing and outcome.]
+[P 13 style=Heading1] 1. Introduction
+[P 14 style=Heading2] 1.1 Background and context
+[P 15 style=] Explain the workplace context and importance of understanding employee-reported workload experience, motivation and learning confidence.
+[P 16 style=] [Insert project-specific content here.]
+[P 17 style=Heading2] 1.2 Problem statement
+[P 18 style=] Define the specific problem the application addresses and why a structured, timely support mechanism is useful.
+[P 19 style=] [Insert project-specific content here.]
+[P 20 style=Heading2] 1.3 Aim and objectives
+[P 21 style=] State the project aim and measurable objectives: collect check-ins, calculate separate indicators, generate explainable alerts/recommendations, support follow-up and show trends.
+[P 22 style=] [Insert project-specific content here.]
+[P 23 style=Heading2] 1.4 Scope and boundaries
+[P 24 style=] List implemented features and exclusions: no task assignment, workload scheduling/resource allocation, employee ranking, psychological diagnosis or automated employment decisions.
+[P 25 style=] [Insert project-specific content here.]
+[P 26 style=Heading2] 1.5 Target users and stakeholders
+[P 27 style=] Describe Employee, Manager, HR Representative and Senior Manager roles.
+[P 28 style=] [Insert project-specific content here.]
+[P 29 style=Heading1] 2. Requirements Analysis
+[P 30 style=Heading2] 2.1 Functional requirements
+[P 31 style=] Summarize authentication, employee assessment, analysis, manager dashboard, alerts, recommendations, follow-up, trends and complaint management.
+[P 32 style=] [Insert project-specific content here.]
+[P 33 style=Heading2] 2.2 Non-functional requirements
+[P 34 style=] Cover usability, security, privacy, performance, reliability, compatibility and explainability.
+[P 35 style=] [Insert project-specific content here.]
+[P 36 style=Heading2] 2.3 User roles and access matrix
+[P 37 style=] Insert a permissions matrix for viewing, creating and updating each type of information.
+[P 38 style=] [Insert project-specific content here.]
+[P 39 style=Heading2] 2.4 Use cases / user stories
+[P 40 style=] Include use-case descriptions or a use-case diagram for the principal workflows.
+[P 41 style=] [Insert project-specific content here.]
+[P 42 style=Heading2] 2.5 Assumptions and constraints
+[P 43 style=] Record project duration, prototype limitations, synthetic data, technical constraints and unresolved clarifications.
+[P 44 style=] [Insert project-specific content here.]
+[P 45 style=Heading1] 3. Theoretical and Analytical Foundation
+[P 46 style=Heading2] 3.1 Behavioural dimensions
+[P 47 style=] Define workload pressure/manageability, motivation/workplace experience and learning confidence as three separate indicators.
+[P 48 style=] [Insert project-specific content here.]
+[P 49 style=Heading2] 3.2 OB theories
+[P 50 style=] Explain the use of Herzberg's Two-Factor Theory, Self-Determination Theory and Social Cognitive Theory. Support discussion with academic citations.
+[P 51 style=] [Insert project-specific content here.]
+[P 52 style=Heading2] 3.3 Questionnaire design
+[P 53 style=] Explain item selection, response scale, question-to-dimension mapping, response polarity, conditional follow-ups and expected completion time.
+[P 54 style=] [Insert project-specific content here.]
+[P 55 style=Heading2] 3.4 Rule-based analysis
+[P 56 style=] Document the actual formula, thresholds, classification labels, minimum-data rule and sample calculations.
+[P 57 style=] [Insert project-specific content here.]
+[P 58 style=Heading2] 3.5 Alert and recommendation logic
+[P 59 style=] Show alert triggers, explanation and human-support recommendation. Clarify that alerts prompt review, not diagnosis or performance judgment.
+[P 60 style=] [Insert project-specific content here.]
+[P 61 style=Heading1] 4. System Design
+[P 62 style=Heading2] 4.1 System architecture
+[P 63 style=] Insert an architecture diagram showing browser/UI, Flask application/business logic and database.
+[P 64 style=] [Insert project-specific content here.]
+[P 65 style=Heading2] 4.2 Application modules
+[P 66 style=] Describe each module and its responsibility.
+[P 67 style=] [Insert project-specific content here.]
+[P 68 style=Heading2] 4.3 Workflow diagrams
+[P 69 style=] Include employee assessment, analysis/manager alert, manager follow-up and complaint lifecycle diagrams.
+[P 70 style=] [Insert project-specific content here.]
+[P 71 style=Heading2] 4.4 User interface
+[P 72 style=] Insert labelled screenshots: login, employee dashboard, questionnaire, results, manager dashboard, alert, trends and complaint screens.
+[P 73 style=] [Insert project-specific content here.]
+[P 74 style=Heading2] 4.5 Data flow
+[P 75 style=] Explain collection, validation, storage, processing, presentation and follow-up recording.
+[P 76 style=] [Insert project-specific content here.]
+[P 77 style=Heading2] 4.6 Privacy and access design
+[P 78 style=] Explain role-based access, manager assignment restrictions, complaint confidentiality, data minimization and separation of complaint data.
+[P 79 style=] [Insert project-specific content here.]
+[P 80 style=Heading1] 5. Database Design
+[P 81 style=Heading2] 5.1 Database overview
+[P 82 style=] Describe the database engine and application connection.
+[P 83 style=] [Insert project-specific content here.]
+[P 84 style=Heading2] 5.2 Entity relationship diagram
+[P 85 style=] Insert ERD and explain entities and relationships.
+[P 86 style=] [Insert project-specific content here.]
+[P 87 style=Heading2] 5.3 Data dictionary
+[P 88 style=] Provide table, field, type, key/constraint and purpose.
+[P 89 style=] [Insert project-specific content here.]
+[P 90 style=Heading2] 5.4 Data handling and security
+[P 91 style=] Explain password hashing, authorization checks, validation, timestamps and synthetic demo records.
+[P 92 style=] [Insert project-specific content here.]
+[P 93 style=Heading1] 6. Technology Selection and Implementation
+[P 94 style=Heading2] 6.1 Technology stack
+[P 95 style=] Explain actual technologies and selection rationale. Proposed stack: HTML, CSS, Bootstrap 5, Python Flask, Flask-SQLAlchemy, SQLite, Flask-Login, Werkzeug and Chart.js. Only claim technologies actually used.
+[P 96 style=] [Insert project-specific content here.]
+[P 97 style=Heading2] 6.2 Development tools
+[P 98 style=] List IDE, version control, libraries, browser and environment.
+[P 99 style=] [Insert project-specific content here.]
+[P 100 style=Heading2] 6.3 Application architecture/code structure
+[P 101 style=] Describe presentation, application/business logic and data layers; include folder structure if useful.
+[P 102 style=] [Insert project-specific content here.]
+[P 103 style=Heading2] 6.4 Key implementation details
+[P 104 style=] Explain authentication, questionnaire, analysis engine, alerts, charts, complaint routing and follow-up storage.
+[P 105 style=] [Insert project-specific content here.]
+[P 106 style=Heading2] 6.5 Challenges and resolutions
+[P 107 style=] Describe actual technical or coordination challenges and how the team addressed them.
+[P 108 style=] [Insert project-specific content here.]
+[P 109 style=Heading1] 7. Application Features and Demonstration
+[P 110 style=Heading2] 7.1 Employee features
+[P 111 style=] Explain login, interactive check-in, results/history and complaint tracking.
+[P 112 style=] [Insert project-specific content here.]
+[P 113 style=Heading2] 7.2 Manager features
+[P 114 style=] Explain assigned employee view, alerts, reasons, recommendations, follow-up and trends.
+[P 115 style=] [Insert project-specific content here.]
+[P 116 style=Heading2] 7.3 HR/Senior Manager features
+[P 117 style=] Explain access to routed complaints, status updates and response/resolution remarks.
+[P 118 style=] [Insert project-specific content here.]
+[P 119 style=Heading2] 7.4 Analytical output
+[P 120 style=] Show synthetic profiles and the resulting separate indicators, classifications and recommendations.
+[P 121 style=] [Insert project-specific content here.]
+[P 122 style=Heading2] 7.5 End-to-end scenarios
+[P 123 style=] Describe at least three complete scenarios that can be demonstrated live.
+[P 124 style=] [Insert project-specific content here.]
+[P 125 style=Heading1] 8. Testing and Quality Assurance
+[P 126 style=Heading2] 8.1 Test strategy
+[P 127 style=] Describe functional, integration, database, access-control/security, usability, compatibility and performance testing.
+[P 128 style=] [Insert project-specific content here.]
+[P 129 style=Heading2] 8.2 Test environment and data
+[P 130 style=] List test accounts, roles, browsers, environment and synthetic datasets.
+[P 131 style=] [Insert project-specific content here.]
+[P 132 style=Heading2] 8.3 Test coverage
+[P 133 style=] Summarize the QA register and map key tests to requirements and project-brief expectations.
+[P 134 style=] [Insert project-specific content here.]
+[P 135 style=Heading2] 8.4 Test execution results
+[P 136 style=] Report actual totals for passed, failed, blocked and not tested cases.
+[P 137 style=] [Insert project-specific content here.]
+[P 138 style=Heading2] 8.5 Defects and retesting
+[P 139 style=] Summarize defect, severity, corrective action and retest outcome.
+[P 140 style=] [Insert project-specific content here.]
+[P 141 style=Heading2] 8.6 Evidence
+[P 142 style=] Reference screenshots, test logs and demonstration recordings where permitted.
+[P 143 style=] [Insert project-specific content here.]
+[P 144 style=Heading1] 9. Results and Evaluation
+[P 145 style=Heading2] 9.1 Functional results
+[P 146 style=] State which workflows were implemented and demonstrated, supported by evidence.
+[P 147 style=] [Insert project-specific content here.]
+[P 148 style=Heading2] 9.2 Quality of insights and alerts
+[P 149 style=] Evaluate clarity of indicators, alert routing and relevance of recommendations.
+[P 150 style=] [Insert project-specific content here.]
+[P 151 style=Heading2] 9.3 Usability observations
+[P 152 style=] Summarize pilot or team-based usability feedback.
+[P 153 style=] [Insert project-specific content here.]
+[P 154 style=Heading2] 9.4 Limitations
+[P 155 style=] State limitations honestly, e.g. rule-based rather than predictive analysis, prototype-scale data and thresholds requiring validation.
+[P 156 style=] [Insert project-specific content here.]
+[P 157 style=Heading2] 9.5 Achievement of objectives
+[P 158 style=] Map each objective to evidence and completion status.
+[P 159 style=] [Insert project-specific content here.]
+[P 160 style=Heading1] 10. Project Management
+[P 161 style=Heading2] 10.1 Project schedule
+[P 162 style=] Insert a three-week schedule with activities, dates, deliverables and status.
+[P 163 style=] [Insert project-specific content here.]
+[P 164 style=Heading2] 10.2 Team responsibilities
+[P 165 style=] Identify each member's responsibilities and contributions.
+[P 166 style=] [Insert project-specific content here.]
+[P 167 style=Heading2] 10.3 Coordination and progress tracking
+[P 168 style=] Explain meetings, task tracking, version control and management of blockers/changes.
+[P 169 style=] [Insert project-specific content here.]
+[P 170 style=Heading2] 10.4 Risks and mitigation
+[P 171 style=] List time, integration, threshold, privacy and testing risks with mitigations.
+[P 172 style=] [Insert project-specific content here.]
+[P 173 style=Heading1] 11. Conclusion and Future Improvements
+[P 174 style=Heading2] 11.1 Conclusion
+[P 175 style=] Summarize the problem, delivered functional solution and outcomes.
+[P 176 style=] [Insert project-specific content here.]
+[P 177 style=Heading2] 11.2 Future enhancements
+[P 178 style=] Discuss configurable frequency, refined thresholds, privacy-preserving aggregate insights, additional notifications, intervention feedback and integrations. Separate planned work from implemented features.
+[P 179 style=] [Insert project-specific content here.]
+[P 180 style=Heading1] References
+[P 181 style=Heading2] References
+[P 182 style=] List academic theories, research papers, books and technical documentation in the required style (e.g. APA 7). Ensure every in-text citation is listed.
+[P 183 style=] [Insert project-specific content here.]
+[P 184 style=Heading1] Appendices
+[P 185 style=Heading2] Appendix A – Requirements traceability
+[P 186 style=] Map requirement IDs to design, implementation and test cases.
+[P 187 style=] [Insert project-specific content here.]
+[P 188 style=Heading2] Appendix B – QA test register
+[P 189 style=] Attach the completed QA document and execution results.
+[P 190 style=] [Insert project-specific content here.]
+[P 191 style=Heading2] Appendix C – Final questionnaire
+[P 192 style=] Include final questions, response options and dimension mapping.
+[P 193 style=] [Insert project-specific content here.]
+[P 194 style=Heading2] Appendix D – Analysis rules
+[P 195 style=] Include finalized calculations, thresholds, classifications and recommendation mapping.
+[P 196 style=] [Insert project-specific content here.]
+[P 197 style=Heading2] Appendix E – Technical setup guide
+[P 198 style=] Give exact prerequisites and steps to install, configure and run the application.
+[P 199 style=] [Insert project-specific content here.]
+[P 200 style=Heading2] Appendix F – User guide
+[P 201 style=] Provide role-specific instructions for Employee, Manager, HR and Senior Manager.
+[P 202 style=] [Insert project-specific content here.]
+[P 203 style=Heading2] Appendix G – Additional evidence
+[P 204 style=] Add supporting screenshots, sample outputs and test evidence.
+[P 205 style=] [Insert project-specific content here.]
+[P 206 style=Heading1] Suggested report tables
+[P 207 style=Heading2] Objectives and success measures
+[TABLE 208]
+  R0: Objective || Success measure/evidence || Status
+  R1: [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 209 style=Heading2] Role and access matrix
+[TABLE 210]
+  R0: Feature/data || Employee || Manager || HR || Senior Manager
+  R1: [Complete] || [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 211 style=Heading2] Functional requirements summary
+[TABLE 212]
+  R0: ID || Requirement || Priority || Implementation status
+  R1: [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 213 style=Heading2] Question-to-dimension mapping
+[TABLE 214]
+  R0: Question ID || Question/construct || Dimension/theory || Response polarity
+  R1: [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 215 style=Heading2] Analysis and alert rules
+[TABLE 216]
+  R0: Dimension || Trigger/threshold || Classification || Explanation || Recommendation
+  R1: [Complete] || [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 217 style=Heading2] Database data dictionary
+[TABLE 218]
+  R0: Table || Field || Type || Key/constraint || Purpose
+  R1: [Complete] || [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 219 style=Heading2] Technology selection
+[TABLE 220]
+  R0: Technology || Purpose || Selection rationale
+  R1: [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 221 style=Heading2] Test execution summary
+[TABLE 222]
+  R0: Test area || Total || Passed || Failed || Blocked
+  R1: [Complete] || [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 223 style=Heading2] Three-week project schedule
+[TABLE 224]
+  R0: Activity || Week 1 || Week 2 || Week 3 || Deliverable
+  R1: [Complete] || [Complete] || [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 225 style=Heading2] Team responsibility matrix
+[TABLE 226]
+  R0: Member || Responsibilities || Deliverables/evidence
+  R1: [Complete] || [Complete] || [Complete]
+[END TABLE]
+[P 227 style=Heading1] Submission readiness checklist
+[P 228 style=ListBullet] Runnable application/prototype and exact run instructions are submitted.
+[P 229 style=ListBullet] Source code is included and organized.
+[P 230 style=ListBullet] Database connection and synthetic demo data are available.
+[P 231 style=ListBullet] At least one meaningful analytical feature and an alert function are implemented.
+[P 232 style=ListBullet] Main employee, manager and complaint workflows have been tested.
+[P 233 style=ListBullet] Testing evidence and actual results are included; unexecuted tests are not marked Pass.
+[P 234 style=ListBullet] Privacy, role access, complaint confidentiality and alert handling are explained.
+[P 235 style=ListBullet] Architecture, ERD, screenshots, schedule and team responsibilities are included.
+[P 236 style=ListBullet] References and appendices are complete.
+[P 237 style=ListBullet] All team members can explain their own contribution and key technical components.
+[P 238 style=Heading1] Report preparation notes
+[P 239 style=ListBullet] Keep the main report concise and evidence-based; put detailed test cases, questionnaire and data dictionary in appendices.
+[P 240 style=ListBullet] Describe implemented features as completed; describe proposed features as future work.
+[P 241 style=ListBullet] Use screenshots, diagrams and tables instead of long descriptive paragraphs where possible.
+[P 242 style=ListBullet] Use synthetic employee data in all screenshots and demonstrations.
+[P 243 style=ListBullet] Report actual test outcomes only after execution and disclose failed/blocked cases.
+[P 244 style=ListBullet] Keep the three behavioural dimensions separate; do not create an unsupported overall employee score.
+[P 245 style=ListBullet] Confirm what the teacher meant by the three-day feedback before finalizing assessment frequency.
+[SECTPR]
+=== STYLES ===
+Normal = Normal
+Header = header
+HeaderChar = Header Char
+Footer = footer
+FooterChar = Footer Char
+Heading1 = heading 1
+Heading2 = heading 2
+Heading3 = heading 3
+Heading4 = heading 4
+Heading5 = heading 5
+Heading6 = heading 6
+Heading7 = heading 7
+Heading8 = heading 8
+Heading9 = heading 9
+DefaultParagraphFont = Default Paragraph Font
+TableNormal = Normal Table
+NoList = No List
+NoSpacing = No Spacing
+Heading1Char = Heading 1 Char
+Heading2Char = Heading 2 Char
+Heading3Char = Heading 3 Char
+Title = Title
+TitleChar = Title Char
+Subtitle = Subtitle
+SubtitleChar = Subtitle Char
+ListParagraph = List Paragraph
+BodyText = Body Text
+BodyTextChar = Body Text Char
+BodyText2 = Body Text 2
+BodyText2Char = Body Text 2 Char
+BodyText3 = Body Text 3
+BodyText3Char = Body Text 3 Char
+List = List
+List2 = List 2
+List3 = List 3
+ListBullet = List Bullet
+ListBullet2 = List Bullet 2
+ListBullet3 = List Bullet 3
+ListNumber = List Number
+ListNumber2 = List Number 2
+ListNumber3 = List Number 3
+ListContinue = List Continue
+ListContinue2 = List Continue 2
+ListContinue3 = List Continue 3
+MacroText = macro
+MacroTextChar = Macro Text Char
+Quote = Quote
+QuoteChar = Quote Char
+Heading4Char = Heading 4 Char
+Heading5Char = Heading 5 Char
+Heading6Char = Heading 6 Char
+Heading7Char = Heading 7 Char
+Heading8Char = Heading 8 Char
+Heading9Char = Heading 9 Char
+Caption = caption
+Strong = Strong
+Emphasis = Emphasis
+IntenseQuote = Intense Quote
+IntenseQuoteChar = Intense Quote Char
+SubtleEmphasis = Subtle Emphasis
+IntenseEmphasis = Intense Emphasis
+SubtleReference = Subtle Reference
+IntenseReference = Intense Reference
+BookTitle = Book Title
+TOCHeading = TOC Heading
+TableGrid = Table Grid
+LightShading = Light Shading
+LightShading-Accent1 = Light Shading Accent 1
+LightShading-Accent2 = Light Shading Accent 2
+LightShading-Accent3 = Light Shading Accent 3
+LightShading-Accent4 = Light Shading Accent 4
+LightShading-Accent5 = Light Shading Accent 5
+LightShading-Accent6 = Light Shading Accent 6
+LightList = Light List
+LightList-Accent1 = Light List Accent 1
+LightList-Accent2 = Light List Accent 2
+LightList-Accent3 = Light List Accent 3
+LightList-Accent4 = Light List Accent 4
+LightList-Accent5 = Light List Accent 5
+LightList-Accent6 = Light List Accent 6
+LightGrid = Light Grid
+LightGrid-Accent1 = Light Grid Accent 1
+LightGrid-Accent2 = Light Grid Accent 2
+LightGrid-Accent3 = Light Grid Accent 3
+LightGrid-Accent4 = Light Grid Accent 4
+LightGrid-Accent5 = Light Grid Accent 5
+LightGrid-Accent6 = Light Grid Accent 6
+MediumShading1 = Medium Shading 1
+MediumShading1-Accent1 = Medium Shading 1 Accent 1
+MediumShading1-Accent2 = Medium Shading 1 Accent 2
+MediumShading1-Accent3 = Medium Shading 1 Accent 3
+MediumShading1-Accent4 = Medium Shading 1 Accent 4
+MediumShading1-Accent5 = Medium Shading 1 Accent 5
+MediumShading1-Accent6 = Medium Shading 1 Accent 6
+MediumShading2 = Medium Shading 2
+MediumShading2-Accent1 = Medium Shading 2 Accent 1
+MediumShading2-Accent2 = Medium Shading 2 Accent 2
+MediumShading2-Accent3 = Medium Shading 2 Accent 3
+MediumShading2-Accent4 = Medium Shading 2 Accent 4
+MediumShading2-Accent5 = Medium Shading 2 Accent 5
+MediumShading2-Accent6 = Medium Shading 2 Accent 6
+MediumList1 = Medium List 1
+MediumList1-Accent1 = Medium List 1 Accent 1
+MediumList1-Accent2 = Medium List 1 Accent 2
+MediumList1-Accent3 = Medium List 1 Accent 3
+MediumList1-Accent4 = Medium List 1 Accent 4
+MediumList1-Accent5 = Medium List 1 Accent 5
+MediumList1-Accent6 = Medium List 1 Accent 6
+MediumList2 = Medium List 2
+MediumList2-Accent1 = Medium List 2 Accent 1
+MediumList2-Accent2 = Medium List 2 Accent 2
+MediumList2-Accent3 = Medium List 2 Accent 3
+MediumList2-Accent4 = Medium List 2 Accent 4
+MediumList2-Accent5 = Medium List 2 Accent 5
+MediumList2-Accent6 = Medium List 2 Accent 6
+MediumGrid1 = Medium Grid 1
+MediumGrid1-Accent1 = Medium Grid 1 Accent 1
+MediumGrid1-Accent2 = Medium Grid 1 Accent 2
+MediumGrid1-Accent3 = Medium Grid 1 Accent 3
+MediumGrid1-Accent4 = Medium Grid 1 Accent 4
+MediumGrid1-Accent5 = Medium Grid 1 Accent 5
+MediumGrid1-Accent6 = Medium Grid 1 Accent 6
+MediumGrid2 = Medium Grid 2
+MediumGrid2-Accent1 = Medium Grid 2 Accent 1
+MediumGrid2-Accent2 = Medium Grid 2 Accent 2
+MediumGrid2-Accent3 = Medium Grid 2 Accent 3
+MediumGrid2-Accent4 = Medium Grid 2 Accent 4
+MediumGrid2-Accent5 = Medium Grid 2 Accent 5
+MediumGrid2-Accent6 = Medium Grid 2 Accent 6
+MediumGrid3 = Medium Grid 3
+MediumGrid3-Accent1 = Medium Grid 3 Accent 1
+MediumGrid3-Accent2 = Medium Grid 3 Accent 2
+MediumGrid3-Accent3 = Medium Grid 3 Accent 3
+MediumGrid3-Accent4 = Medium Grid 3 Accent 4
+MediumGrid3-Accent5 = Medium Grid 3 Accent 5
+MediumGrid3-Accent6 = Medium Grid 3 Accent 6
+DarkList = Dark List
+DarkList-Accent1 = Dark List Accent 1
+DarkList-Accent2 = Dark List Accent 2
+DarkList-Accent3 = Dark List Accent 3
+DarkList-Accent4 = Dark List Accent 4
+DarkList-Accent5 = Dark List Accent 5
+DarkList-Accent6 = Dark List Accent 6
+ColorfulShading = Colorful Shading
+ColorfulShading-Accent1 = Colorful Shading Accent 1
+ColorfulShading-Accent2 = Colorful Shading Accent 2
+ColorfulShading-Accent3 = Colorful Shading Accent 3
+ColorfulShading-Accent4 = Colorful Shading Accent 4
+ColorfulShading-Accent5 = Colorful Shading Accent 5
+ColorfulShading-Accent6 = Colorful Shading Accent 6
+ColorfulList = Colorful List
+ColorfulList-Accent1 = Colorful List Accent 1
+ColorfulList-Accent2 = Colorful List Accent 2
+ColorfulList-Accent3 = Colorful List Accent 3
+ColorfulList-Accent4 = Colorful List Accent 4
+ColorfulList-Accent5 = Colorful List Accent 5
+ColorfulList-Accent6 = Colorful List Accent 6
+ColorfulGrid = Colorful Grid
+ColorfulGrid-Accent1 = Colorful Grid Accent 1
+ColorfulGrid-Accent2 = Colorful Grid Accent 2
+ColorfulGrid-Accent3 = Colorful Grid Accent 3
+ColorfulGrid-Accent4 = Colorful Grid Accent 4
+ColorfulGrid-Accent5 = Colorful Grid Accent 5
+ColorfulGrid-Accent6 = Colorful Grid Accent 6

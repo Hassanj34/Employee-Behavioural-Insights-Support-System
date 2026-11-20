@@ -25,8 +25,75 @@
     link.addEventListener("click", closeMenu);
   });
   document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") closeMenu();
+    if (event.key === "Escape") {
+      closeMenu();
+      closeNotifications();
+    }
   });
+
+  const notifyButton = document.getElementById("notify-button");
+  const notifyPanel = document.getElementById("notify-panel");
+
+  function closeNotifications() {
+    if (!notifyPanel || !notifyButton) return;
+    notifyPanel.hidden = true;
+    notifyButton.setAttribute("aria-expanded", "false");
+  }
+
+  function clearNotifications() {
+    const token = document.querySelector('meta[name="csrf-token"]');
+    const clearButton = document.getElementById("notify-clear");
+    if (clearButton) clearButton.disabled = true;
+    fetch("/notifications/clear", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": token ? token.content : "",
+        "Accept": "application/json",
+      },
+    }).then(function (response) {
+      if (!response.ok) {
+        if (clearButton) clearButton.disabled = false;
+        return;
+      }
+      const badge = notifyButton.querySelector(".notify-badge");
+      if (badge) badge.remove();
+      const list = notifyPanel.querySelector(".notify-list");
+      if (list) list.remove();
+      if (clearButton) clearButton.remove();
+      if (!notifyPanel.querySelector(".notify-empty")) {
+        const empty = document.createElement("p");
+        empty.className = "notify-empty";
+        empty.textContent = "No notifications.";
+        notifyPanel.appendChild(empty);
+      }
+    }).catch(function () {
+      if (clearButton) clearButton.disabled = false;
+    });
+  }
+
+  if (notifyButton && notifyPanel) {
+    notifyButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      const willOpen = notifyPanel.hidden;
+      if (willOpen) {
+        notifyPanel.hidden = false;
+        notifyButton.setAttribute("aria-expanded", "true");
+      } else {
+        closeNotifications();
+      }
+    });
+    notifyPanel.addEventListener("click", function (event) {
+      const clearButton = event.target.closest("#notify-clear");
+      if (!clearButton) return;
+      event.preventDefault();
+      event.stopPropagation();
+      clearNotifications();
+    });
+    notifyPanel.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+    document.addEventListener("click", closeNotifications);
+  }
 
   document.querySelectorAll(".filter-bar select, .filter-bar input[type=date]").forEach(function (field) {
     field.addEventListener("change", function () {

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}EBISS{% endblock %} · EBISS</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -54,8 +55,40 @@
           <h1>{% block heading %}Dashboard{% endblock %}</h1>
         </div>
         <div class="who">
+          <div class="notify">
+            <button class="notify-button" id="notify-button" type="button" aria-expanded="false" aria-controls="notify-panel" aria-haspopup="dialog">
+              <i class="bi bi-bell"></i>
+              {% if notifications %}
+                <span class="notify-badge">{{ notifications|length }}</span>
+              {% endif %}
+              <span class="visually-hidden">Notifications{% if notifications %}, {{ notifications|length }}{% endif %}</span>
+            </button>
+            <div class="notify-panel" id="notify-panel" role="dialog" aria-label="Notifications" hidden>
+              <div class="notify-head">
+                <strong>Notifications</strong>
+                {% if notifications %}
+                  <button class="notify-clear" id="notify-clear" type="button">Clear all</button>
+                {% endif %}
+              </div>
+              {% if notifications %}
+                <ul class="notify-list">
+                  {% for note in notifications %}
+                    <li>
+                      <a class="notify-item{% if not note.read_at %} is-unread{% endif %}" href="{{ url_for('manager.alert_detail', alert_id=note.alert_id) }}">
+                        <span class="notify-kicker">{{ note.alert.employee.name }} · {{ note.created_at|shortdate }}</span>
+                        <strong>{{ note.alert.dimension }} · {{ note.alert.score|score }} · {{ note.alert.classification }}</strong>
+                        <span>{{ note.alert.explanation }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="notify-empty">No notifications.</p>
+              {% endif %}
+            </div>
+          </div>
           <span class="avatar" aria-hidden="true">{{ current_user.name|initials }}</span>
-          <div>
+          <div class="who-copy">
             <strong>{{ current_user.name }}</strong>
             <span>{{ role_labels[current_user.role] }}</span>
           </div>
