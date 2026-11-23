@@ -5,30 +5,58 @@ from app.services.alert_settings import get_alert_settings
 from app.services.assessment_engine import SIGNIFICANT
 from tests.conftest import add_user, login
 
-HIGH = {"w1": "5", "w2": "5", "w3": "5", "m1": "5", "m2": "5", "m3": "5", "l1": "5", "l2": "5", "l3": "5"}
+HIGH = {
+    "w1": "5",
+    "w2": "5",
+    "w3": "5",
+    "w4": "5",
+    "w5": "5",
+    "m1": "5",
+    "m2": "5",
+    "m3": "5",
+    "m4": "5",
+    "m5": "5",
+    "l1": "5",
+    "l2": "5",
+    "l3": "5",
+    "l4": "5",
+    "l5": "5",
+}
 MOTIVATION_DROP = {
     "w1": "5",
     "w2": "5",
     "w3": "5",
+    "w4": "5",
+    "w5": "5",
     "m1": "3",
     "m2": "3",
     "m3": "4",
+    "m4": "3",
+    "m5": "4",
     "l1": "5",
     "l2": "5",
     "l3": "5",
+    "l4": "5",
+    "l5": "5",
 }
 LOW_WORKLOAD = {
     "w1": "2",
     "w2": "2",
     "w3": "2",
+    "w4": "2",
+    "w5": "2",
     "wf1": "2",
     "wf2": "2",
     "m1": "4",
     "m2": "4",
     "m3": "4",
+    "m4": "4",
+    "m5": "4",
     "l1": "4",
     "l2": "4",
     "l3": "4",
+    "l4": "4",
+    "l5": "4",
 }
 
 

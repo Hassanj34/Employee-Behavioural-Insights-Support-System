@@ -375,20 +375,27 @@ button, input, select { font: inherit; }
   border: 1px solid var(--line);
   border-radius: 1.15rem;
   box-shadow: var(--shadow);
-  padding: 1rem 1rem 0.95rem;
+  padding: 1.2rem 1.4rem 1.15rem;
   margin-bottom: 1rem;
 }
-.progress-meta { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: 0.85rem; }
+.progress-meta { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: 1.15rem; }
 .progress-meta strong { font-family: var(--serif); font-size: 1.15rem; }
 .progress-meta span { color: var(--muted); font-size: 0.85rem; font-weight: 700; }
-.stepper { display: flex; gap: 0; list-style: none; padding: 0; margin: 0 0 0.9rem; }
-.stepper li { flex: 1; min-width: 0; position: relative; }
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 2.25rem;
+  list-style: none;
+  padding: 0.15rem 0.4rem 0;
+  margin: 0 0 1.2rem;
+}
+.stepper li { min-width: 0; position: relative; }
 .stepper li:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 1.15rem;
-  left: calc(50% + 1.3rem);
-  right: calc(-50% + 1.3rem);
+  top: 1.25rem;
+  left: calc(50% + 1.45rem);
+  right: calc(-50% - 0.8rem);
   height: 2px;
   background: #e4ddd2;
   z-index: 0;
@@ -399,19 +406,20 @@ button, input, select { font: inherit; }
   z-index: 1;
   width: 100%;
   display: flex;
-  gap: 0.65rem;
+  flex-direction: column;
+  gap: 0.55rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border: 0;
   background: transparent;
   color: var(--muted);
-  padding: 0;
+  padding: 0 0.25rem;
 }
 .step-button:disabled { cursor: default; }
 .stepper li.is-done .step-button { cursor: pointer; }
 .step-index {
-  width: 2.3rem;
-  height: 2.3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -420,9 +428,9 @@ button, input, select { font: inherit; }
   font-weight: 750;
   flex: none;
 }
-.step-copy { display: flex; flex-direction: column; text-align: left; min-width: 0; }
+.step-copy { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; min-width: 0; gap: 0.12rem; }
 .step-kicker { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
-.step-label { font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.step-label { font-weight: 700; color: var(--ink); line-height: 1.3; white-space: normal; }
 .stepper li.is-current .step-index { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 5px rgba(14, 124, 116, 0.16); }
 .stepper li.is-current .step-kicker { color: var(--accent-dark); }
 .stepper li.is-done .step-index { background: #e7f4f2; border-color: #0e7c74; color: var(--accent-dark); }
@@ -534,9 +542,11 @@ dl.meta dt { color: var(--muted); }
   .likert { flex-direction: column; }
   .likert-option { width: 100%; }
   .topbar h1 { font-size: 1.25rem; }
-  .stepper { flex-direction: column; gap: 0.55rem; }
+  .progress-panel { padding: 1rem; }
+  .stepper { grid-template-columns: 1fr; row-gap: 0.85rem; padding: 0; }
   .stepper li:not(:last-child)::after { display: none; }
-  .step-button { justify-content: flex-start; }
+  .step-button { flex-direction: row; justify-content: flex-start; gap: 0.75rem; padding: 0; }
+  .step-copy { align-items: flex-start; text-align: left; }
   .filter-field, .filter-field.grow { width: 100%; }
 }
 

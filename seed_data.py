@@ -35,14 +35,21 @@ def _add_user(name, email, role, department, designation, manager=None):
     return user
 
 
+def _five(values):
+    values = tuple(values)
+    if len(values) == 3:
+        return values + (values[-1], values[-1])
+    return values
+
+
 def _answers(workload, motivation, learning):
-    codes = ("W1", "W2", "W3", "M1", "M2", "M3", "L1", "L2", "L3")
-    values = list(workload) + list(motivation) + list(learning)
+    codes = ("W1", "W2", "W3", "W4", "W5", "M1", "M2", "M3", "M4", "M5", "L1", "L2", "L3", "L4", "L5")
+    values = list(_five(workload)) + list(_five(motivation)) + list(_five(learning))
     answers = dict(zip(codes, values))
     follow_ups = {
-        ("W1", "W2", "W3"): ("WF1", "WF2"),
-        ("M1", "M2", "M3"): ("MF1", "MF2"),
-        ("L1", "L2", "L3"): ("LF1", "LF2"),
+        ("W1", "W2", "W3", "W4", "W5"): ("WF1", "WF2"),
+        ("M1", "M2", "M3", "M4", "M5"): ("MF1", "MF2"),
+        ("L1", "L2", "L3", "L4", "L5"): ("LF1", "LF2"),
     }
     for cores, extras in follow_ups.items():
         if any(answers[code] <= 2 for code in cores):

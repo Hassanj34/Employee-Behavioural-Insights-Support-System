@@ -44,6 +44,16 @@ QUESTIONS = [
         "text": "My current workload is manageable and does not feel overwhelming.",
     },
     {
+        "code": "W4",
+        "dimension": "workload",
+        "text": "I can pause briefly during the day without falling behind.",
+    },
+    {
+        "code": "W5",
+        "dimension": "workload",
+        "text": "Unexpected tasks are balanced against the time I already have.",
+    },
+    {
         "code": "M1",
         "dimension": "motivation",
         "text": "I feel that my contributions and achievements are recognized and appreciated.",
@@ -59,6 +69,16 @@ QUESTIONS = [
         "text": "I feel connected to and supported by the people I work with.",
     },
     {
+        "code": "M4",
+        "dimension": "motivation",
+        "text": "I can see how my work contributes to something that matters.",
+    },
+    {
+        "code": "M5",
+        "dimension": "motivation",
+        "text": "I have chances to use my skills in ways I find worthwhile.",
+    },
+    {
         "code": "L1",
         "dimension": "learning",
         "text": "I feel confident learning new skills required for my job.",
@@ -72,6 +92,16 @@ QUESTIONS = [
         "code": "L3",
         "dimension": "learning",
         "text": "I feel capable of overcoming difficulties when learning unfamiliar tasks.",
+    },
+    {
+        "code": "L4",
+        "dimension": "learning",
+        "text": "I can find the information I need when a task is unfamiliar.",
+    },
+    {
+        "code": "L5",
+        "dimension": "learning",
+        "text": "Practice and feedback help me feel ready for a new responsibility.",
     },
     {
         "code": "WF1",
@@ -141,12 +171,18 @@ CONCERN_PHRASES = {
     "W1": "completing assigned work within expected working hours",
     "W2": "having enough time without feeling constantly rushed",
     "W3": "keeping the current workload manageable",
+    "W4": "being able to pause briefly without falling behind",
+    "W5": "balancing unexpected tasks with the time already available",
     "M1": "feeling that contributions are recognized",
     "M2": "having enough autonomy in how the work is done",
     "M3": "feeling connected to and supported by colleagues",
+    "M4": "seeing how the work contributes to something that matters",
+    "M5": "chances to use skills in worthwhile ways",
     "L1": "confidence in learning new skills required for the job",
     "L2": "belief in handling new responsibilities when guidance is available",
     "L3": "feeling capable of overcoming difficulties with unfamiliar tasks",
+    "L4": "finding information when a task is unfamiliar",
+    "L5": "feeling ready for a new responsibility after practice and feedback",
     "WF1": "clarity about which tasks should take priority",
     "WF2": "being able to raise workload concerns early",
     "MF1": "how often work is recognized",
@@ -203,7 +239,7 @@ def _clean_code(code, value):
 def core_map(responses):
     missing = [code for code in CORE_CODES if code not in responses]
     if missing:
-        raise ValueError("All nine core questions are required.")
+        raise ValueError("All fifteen core questions are required.")
     return {code: _clean_code(code, responses[code]) for code in CORE_CODES}
 
 
@@ -218,10 +254,17 @@ def validate_responses(responses):
 
 
 def score_responses(responses):
+    """Average the five core answers, plus any follow-up answers that were shown."""
     core = core_map(responses)
     scores = {}
     for dimension, codes in CODES_BY_DIMENSION.items():
-        scores[dimension] = sum(core[code] for code in codes) / len(codes)
+        values = [core[code] for code in codes]
+        for code in FOLLOW_UPS_BY_DIMENSION[dimension]:
+            raw = responses.get(code)
+            if raw in (None, ""):
+                continue
+            values.append(_clean_code(code, raw))
+        scores[dimension] = sum(values) / len(values)
     return scores
 
 
@@ -237,8 +280,8 @@ def _join(phrases):
 def explain(dimension, responses, classification, audience="employee"):
     label = DIMENSION_LABELS[dimension].lower()
     codes = CODES_BY_DIMENSION[dimension]
-    low_codes = [code for code in codes if int(responses[code]) <= 2]
-    mild_codes = [code for code in codes if int(responses[code]) == 3]
+    low_codes = [code for code in codes if code in responses and int(responses[code]) <= 2]
+    mild_codes = [code for code in codes if code in responses and int(responses[code]) == 3]
     focus = low_codes or mild_codes
     follow_low = [
         code

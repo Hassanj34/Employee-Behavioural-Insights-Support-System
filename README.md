@@ -7,7 +7,7 @@ This is a support tool for a course prototype. It does not rank employees, diagn
 ## Features
 
 - Four roles: Employee, Manager, HR, and Senior Manager. Access is enforced on the server.
-- A nine-question assessment with extra follow-up questions when someone disagrees with a core item.
+- A fifteen-question assessment, five questions in each area, with extra follow-up questions when someone disagrees with a core item. Follow-up answers count in that area's score.
 - Separate scores for workload, motivation, and learning confidence, each with a plain-language explanation.
 - Manager alerts, suggested conversations, and a record of whether a follow-up was useful.
 - Configurable alert rules for the Senior Manager. Stored assessments keep the classification they had when they were submitted.
@@ -124,12 +124,12 @@ The organization is Systems Limited, Karachi. The people are demonstration accou
 ## Walkthrough
 
 1. Sign in as `bilal.ahmed@systems.local`.
-2. Open **New Assessment** and answer all nine questions. Disagreeing with a core question reveals two follow-up questions for that area.
+2. Open **New Assessment** and answer all fifteen questions. Disagreeing with a core question reveals two follow-up questions for that area, and those answers count in the area score.
 3. Submit the assessment and read the three indicators. Each area has its own score, classification, and explanation.
 4. Sign out and sign in as `imran.sheikh@systems.local`.
 5. Open Bilal Ahmed and his workload alert. Read the explanation and the suggested conversation.
 6. Record a follow-up, then mark it Useful, Partly useful, or Not useful.
-7. Open **Alerts** and filter by **Significant Change**. Sana Iqbal's motivation fell from 4.67 to 3.33, so an alert exists even though the new score is above the attention line.
+7. Open **Alerts** and filter by **Significant Change**. Sana Iqbal's motivation fell from 4.40 to 3.60, so an alert exists even though the new score is above the attention line.
 8. Sign back in as Bilal Ahmed, submit a second assessment, and open **Assessment History**. Both submissions appear on the chart.
 9. Submit a workplace complaint addressed to HR.
 10. Sign in as `nadia.hussain@systems.local`, open that complaint, add a remark, and set the status to Under Review.
@@ -141,7 +141,7 @@ Two boundaries worth showing: Hira Baig cannot open Imran Sheikh's employees, an
 
 ## How the indicators are calculated
 
-Each area is the average of its three core answers on a 1–5 scale. The questions are positively worded, so a higher number is a more positive experience. Follow-up answers are stored and are not included in the average. There is no combined employee score.
+Each area is the average of its five core answers on a 1–5 scale. The questions are positively worded, so a higher number is a more positive experience. If any core answer in an area is Disagree or Strongly Disagree, two follow-up answers are required and included in that same average. There is no combined employee score.
 
 The starting rules are:
 

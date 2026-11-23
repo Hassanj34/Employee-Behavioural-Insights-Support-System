@@ -3,7 +3,7 @@
 {% block eyebrow %}Employee{% endblock %}
 {% block heading %}Behavioural assessment{% endblock %}
 {% block content %}
-  <p class="note">Answer the nine core questions. If you disagree with a core question, two follow-up questions appear for that area. Higher agreement means a more positive experience. A check-in about once a week is encouraged. Incomplete assessments are not saved.</p>
+  <p class="note">Answer the fifteen core questions, five in each area. If you disagree with a core question, two follow-up questions appear for that area, and those answers count in that area's score. Higher agreement means a more positive experience. A check-in about once a week is encouraged. Incomplete assessments are not saved.</p>
   <div class="progress-panel">
     <div class="progress-meta">
       <strong id="assessment-progress-label">Section 1 of 3</strong>
@@ -31,7 +31,7 @@
   </div>
   <div id="section-error" class="alert alert-danger d-none">Answer every question in this section before continuing.</div>
   {% if form.errors %}
-    <div class="alert alert-danger">Answer all nine questions before submitting. Nothing was saved.</div>
+    <div class="alert alert-danger">Answer all fifteen core questions before submitting. Follow-up questions count too when they appear. Nothing was saved.</div>
   {% endif %}
   <form id="assessment-form" method="post" novalidate>
     {{ form.hidden_tag() }}
@@ -39,7 +39,7 @@
       <section class="panel" data-section="{{ section.key }}">
         <h2>{% if section.key == "workload" %}⏱️{% elif section.key == "motivation" %}✨{% else %}🌱{% endif %} {{ section.title }}</h2>
         <p class="note">{{ section.note }}</p>
-        <p class="follow-up-note d-none">💬 Two extra questions opened for this area.</p>
+        <p class="follow-up-note d-none">💬 Two extra questions opened for this area. Their answers count in this score.</p>
         {% for question in section.questions %}
           {% set field = form[question.code|lower] %}
           <div class="question {% if question.follow_up %}d-none{% endif %} {% if field.errors %}is-invalid{% endif %}" data-follow-up="{{ 'true' if question.follow_up else 'false' }}" data-core="{{ 'false' if question.follow_up else 'true' }}">
