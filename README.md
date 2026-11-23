@@ -1,16 +1,16 @@
-# Employee Behavioural Insights & Support System
+# Solace
 
-A Flask application that helps a manager notice workload, motivation, and learning-confidence signals early, then follow up with a conversation. Employees complete a short self-assessment. A transparent rule engine classifies each area separately and opens an alert when support is needed or a score drops sharply. Complaints go to HR or a Senior Manager and stay separate from assessments.
+A Flask application that helps a manager notice workload, motivation, and learning-confidence signals early, then follow up with a conversation. Employees complete a short check-in. A transparent rule engine classifies each area separately and opens an alert when support is needed or a score drops sharply. Complaints go to HR or a Senior Manager and stay separate from check-ins.
 
 This is a support tool for a course prototype. It does not rank employees, diagnose anyone, or make employment decisions.
 
 ## Features
 
 - Four roles: Employee, Manager, HR, and Senior Manager. Access is enforced on the server.
-- A fifteen-question assessment, five questions in each area, with extra follow-up questions when someone disagrees with a core item. Follow-up answers count in that area's score.
+- A fifteen-question check-in, five questions in each area, with extra follow-up questions when someone disagrees with a core item. Follow-up answers count in that area's score.
 - Separate scores for workload, motivation, and learning confidence, each with a plain-language explanation.
 - Manager alerts, suggested conversations, and a record of whether a follow-up was useful.
-- Configurable alert rules for the Senior Manager. Stored assessments keep the classification they had when they were submitted.
+- Configurable alert rules for the Senior Manager. Stored check-ins keep the classification they had when they were submitted.
 - Employee complaints with status tracking. HR and the Senior Manager each see only the complaints addressed to them.
 - Search, filters, date ranges, charts, and printable summaries.
 - A seeded demonstration company, Systems Limited in Karachi, so the app can be shown immediately after setup.
@@ -124,18 +124,18 @@ The organization is Systems Limited, Karachi. The people are demonstration accou
 ## Walkthrough
 
 1. Sign in as `bilal.ahmed@systems.local`.
-2. Open **New Assessment** and answer all fifteen questions. Disagreeing with a core question reveals two follow-up questions for that area, and those answers count in the area score.
-3. Submit the assessment and read the three indicators. Each area has its own score, classification, and explanation.
+2. Open **New Check-in** and answer all fifteen questions. Disagreeing with a core question reveals two follow-up questions for that area, and those answers count in the area score.
+3. Submit the check-in and read the three indicators. Each area has its own score, classification, and explanation.
 4. Sign out and sign in as `imran.sheikh@systems.local`.
 5. Open Bilal Ahmed and his workload alert. Read the explanation and the suggested conversation.
 6. Record a follow-up, then mark it Useful, Partly useful, or Not useful.
 7. Open **Alerts** and filter by **Significant Change**. Sana Iqbal's motivation fell from 4.40 to 3.60, so an alert exists even though the new score is above the attention line.
-8. Sign back in as Bilal Ahmed, submit a second assessment, and open **Assessment History**. Both submissions appear on the chart.
+8. Sign back in as Bilal Ahmed, submit a second check-in, and open **Check-in History**. Both submissions appear on the chart.
 9. Submit a workplace complaint addressed to HR.
 10. Sign in as `nadia.hussain@systems.local`, open that complaint, add a remark, and set the status to Under Review.
 11. Sign back in as Bilal Ahmed and confirm the new status on **My Complaints**.
 12. Sign in as Imran Sheikh and try to open the HR complaint. Access is refused, and the complaint text is not shown.
-13. Sign in as `zara.qureshi@systems.local` and open **Alert Rules**. Change a threshold and save it. The new rule applies to assessments submitted after the save.
+13. Sign in as `zara.qureshi@systems.local` and open **Alert Rules**. Change a threshold and save it. The new rule applies to check-ins submitted after the save.
 
 Two boundaries worth showing: Hira Baig cannot open Imran Sheikh's employees, and HR cannot open a complaint sent to the Director.
 
@@ -154,7 +154,7 @@ The starting rules are:
 
 The Director can change the positive line, the attention line, and the drop size under **Alert Rules**. A first check-in that is only Support Recommended does not open an alert, because there is no earlier score to compare. These cut-offs are prototype defaults for the demonstration. They are not diagnostic thresholds.
 
-The workload items draw on Karasek and Theorell. The motivation items draw on Herzberg's Two-Factor Theory and Self-Determination Theory. The learning-confidence items draw on Bandura's Social Cognitive Theory. Each section of the assessment names its source.
+The workload items draw on Karasek and Theorell. The motivation items draw on Herzberg's Two-Factor Theory and Self-Determination Theory. The learning-confidence items draw on Bandura's Social Cognitive Theory. Each section of the check-in names its source.
 
 ## Tests
 

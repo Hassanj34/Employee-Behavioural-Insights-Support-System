@@ -100,7 +100,7 @@ def assessment():
         except ValueError as exc:
             flash(str(exc), "danger")
         else:
-            flash("Assessment submitted. Your indicators are ready.", "success")
+            flash("Check-in submitted. Your indicators are ready.", "success")
             return redirect(url_for("employee.results", assessment_id=record.id))
     sections = [
         {

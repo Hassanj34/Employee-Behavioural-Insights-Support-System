@@ -15,5 +15,5 @@
   </div>
   <script id="trend-data" type="application/json">{{ chart|tojson }}</script>
 {% else %}
-  <div class="panel empty">{% if filters is defined and filters.has_dates %}No assessments in this date range.{% else %}No completed assessments yet.{% endif %}</div>
+  <div class="panel empty">{% if filters is defined and filters.has_dates %}No check-ins in this date range.{% else %}No completed check-ins yet.{% endif %}</div>
 {% endif %}

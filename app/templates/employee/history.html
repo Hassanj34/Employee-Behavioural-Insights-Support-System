@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Assessment history{% endblock %}
+{% block title %}Check-in history{% endblock %}
 {% block eyebrow %}Employee{% endblock %}
-{% block heading %}Assessment history{% endblock %}
+{% block heading %}Check-in history{% endblock %}
 {% block content %}
   {% with print_title=current_user.name, print_subtitle="Historical indicators. Each dimension stays separate. This is not a performance rating." %}
     {% include "partials/print_heading.html" %}
@@ -37,7 +37,7 @@
               <td class="no-print"><a href="{{ url_for('employee.results', assessment_id=item.id) }}">Open</a></td>
             </tr>
           {% else %}
-            <tr><td colspan="5" class="empty">{% if filters.has_dates %}No assessments in this date range.{% else %}No assessments yet.{% endif %}</td></tr>
+            <tr><td colspan="5" class="empty">{% if filters.has_dates %}No check-ins in this date range.{% else %}No check-ins yet.{% endif %}</td></tr>
           {% endfor %}
         </tbody>
       </table>

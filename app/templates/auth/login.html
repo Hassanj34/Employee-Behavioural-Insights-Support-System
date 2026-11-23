@@ -3,26 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign in · EBISS</title>
+  <title>Sign in · Solace</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <div class="login-screen">
+<body class="login-body">
+  <main class="login-screen">
     <section class="login-story">
-      <p class="eyebrow">Employee Behavioural Insights &amp; Support System</p>
-      <h1>See support needs before they become workplace problems.</h1>
-      <p>Periodic self-reports on workload, motivation, and learning confidence are classified separately with transparent rules. This is a managerial support tool, not a performance rating.</p>
+      <div class="login-brand">
+        <span class="login-mark" aria-hidden="true">S</span>
+        <span>
+          <strong>Solace</strong>
+          <span>Wellbeing and support</span>
+        </span>
+      </div>
+      <h1>Support starts with a two&#8209;minute check&#8209;in.</h1>
+      <p>A short weekly check-in. Clear results. Support, not a rating.</p>
       <ul class="login-points">
-        <li>Workload manageability and time pressure</li>
-        <li>Motivation through recognition, autonomy, and relatedness</li>
-        <li>Learning confidence for new responsibilities</li>
+        <li><i class="bi bi-shield-lock" aria-hidden="true"></i><span><strong>Your answers stay yours.</strong> Never shown as a rating.</span></li>
+        <li><i class="bi bi-chat-square-text" aria-hidden="true"></i><span><strong>Every result is explained.</strong> Plain reasons, real suggestions.</span></li>
+        <li><i class="bi bi-heart" aria-hidden="true"></i><span><strong>Help, not ratings.</strong> Support indicators, never diagnoses.</span></li>
       </ul>
     </section>
     <section class="login-panel">
       <div class="card login-card">
-        <h2>Sign in</h2>
+        <h2>Welcome back</h2>
+        <p class="login-lead">Log in with your work account.</p>
         {% include "partials/flashes.html" %}
         <form method="post" novalidate>
           {{ form.hidden_tag() }}
@@ -57,7 +64,7 @@
         </div>
       </div>
     </section>
-  </div>
+  </main>
   <script>
     (function () {
       const email = document.getElementById("login-email");

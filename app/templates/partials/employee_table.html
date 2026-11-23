@@ -6,7 +6,7 @@
         <th>Workload</th>
         <th>Motivation</th>
         <th>Learning confidence</th>
-        <th>Latest assessment</th>
+        <th>Latest check-in</th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
             <a class="person-link" href="{{ url_for('manager.employee_detail', employee_id=row.employee.id) }}">{{ row.employee.name }}</a>
             <div class="note">{{ row.employee.designation }}</div>
             {% if filters is defined and filters.has_dates and not row.latest %}
-              <div class="note">No assessment in this date range.</div>
+              <div class="note">No check-in in this date range.</div>
             {% endif %}
           </td>
           {% if row.latest %}

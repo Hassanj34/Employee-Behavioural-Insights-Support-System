@@ -14,7 +14,7 @@
     <dl class="meta">
       <dt>Department</dt><dd>{{ employee.department or "—" }}</dd>
       <dt>Designation</dt><dd>{{ employee.designation or "—" }}</dd>
-      <dt>Latest assessment</dt><dd>{{ latest.submission_date|shortdate if latest else "—" }}</dd>
+      <dt>Latest check-in</dt><dd>{{ latest.submission_date|shortdate if latest else "—" }}</dd>
     </dl>
   </section>
   {% if indicators %}
@@ -30,7 +30,7 @@
       </section>
     {% endif %}
   {% else %}
-    <section class="panel empty">This employee has not completed an assessment.</section>
+    <section class="panel empty">This employee has not completed a check-in.</section>
   {% endif %}
   {% if responses %}
     <section class="panel mt-3">
@@ -42,7 +42,7 @@
             {% for code, question in questions.items() %}
               {% if code in responses %}
               <tr>
-                <td>{{ code }}. {{ question.text }}</td>
+                <td>{{ question.text }}</td>
                 <td>{{ likert_labels[responses[code]] }} ({{ responses[code] }})</td>
               </tr>
               {% endif %}

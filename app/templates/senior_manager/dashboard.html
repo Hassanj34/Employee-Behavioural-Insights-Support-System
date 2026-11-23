@@ -14,7 +14,7 @@
     {% include "partials/filter_bar.html" %}
   {% endwith %}
   <section class="panel">
-    <p class="note">Only complaints routed to you are listed. You do not see behavioural assessments here. Counts follow the current filters.</p>
+    <p class="note">Only complaints routed to you are listed. You do not see check-ins here. Counts follow the current filters.</p>
     {% from "partials/complaint_table.html" import complaint_rows with context %}
     {{ complaint_rows(complaints, "senior_manager.complaint_detail", filters.active) }}
   </section>

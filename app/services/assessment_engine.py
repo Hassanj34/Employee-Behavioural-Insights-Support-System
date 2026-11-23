@@ -299,7 +299,7 @@ def explain(dimension, responses, classification, audience="employee"):
             )
         return (
             f"Your responses suggest that {label} is in a positive range right now. "
-            "This indicator is based only on what you reported in this assessment."
+            "This indicator is based only on what you reported in this check-in."
         )
 
     if classification == ATTENTION:

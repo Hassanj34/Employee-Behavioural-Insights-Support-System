@@ -27,7 +27,7 @@ def login():
         email = form.email.data.strip().lower()
         user = db.session.scalars(db.select(User).where(User.email == email)).first()
         if user is None or not user.is_active or not user.check_password(form.password.data):
-            flash("The email or password is incorrect.", "danger")
+            flash("The username or password is incorrect.", "danger")
         else:
             login_user(user)
             next_url = request.args.get("next")

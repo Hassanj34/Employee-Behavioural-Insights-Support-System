@@ -3,30 +3,38 @@
 {% block eyebrow %}Employee{% endblock %}
 {% block heading %}My complaints{% endblock %}
 {% block content %}
-  <p class="note">Complaints are separate from behavioural assessments. Your manager does not see them through this system.</p>
-  <p class="no-print"><a class="btn btn-accent" href="{{ url_for('employee.submit_complaint') }}">Submit a concern</a></p>
-  {% with fields=["status", "dates"], statuses=complaint_statuses %}
-    {% include "partials/filter_bar.html" %}
-  {% endwith %}
-  <section class="panel">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr><th>Complaint</th><th>Recipient</th><th>Date</th><th>Status</th></tr>
-        </thead>
-        <tbody>
-          {% for complaint in complaints %}
-            <tr>
-              <td><a href="{{ url_for('employee.complaint_detail', complaint_id=complaint.id) }}">{{ complaint.subject }}</a></td>
-              <td>{{ recipient_labels[complaint.recipient_role] }}</td>
-              <td>{{ complaint.created_at|shortdate }}</td>
-              <td><span class="status-pill is-{{ status_key(complaint.status) }}">{{ complaint.status }}</span></td>
-            </tr>
-          {% else %}
-            <tr><td colspan="4" class="empty">{% if filters.active %}No complaints match these filters.{% else %}You have not submitted a complaint.{% endif %}</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
+  <section class="complaint-prompt no-print">
+    <div class="complaint-prompt-icon" aria-hidden="true"><i class="bi bi-chat-left-dots"></i></div>
+    <div>
+      <h2>Something on your mind?</h2>
+      <p>Raise it privately with HR or Senior Management. Your manager does not see complaints through this system.</p>
+      <a class="btn btn-accent" href="{{ url_for('employee.submit_complaint') }}">Submit a complaint</a>
     </div>
+  </section>
+  <section class="complaints-board">
+    {% with fields=["status", "dates"], statuses=complaint_statuses %}
+      {% include "partials/filter_bar.html" %}
+    {% endwith %}
+    <section class="panel">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr><th>Complaint</th><th>Recipient</th><th>Date</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {% for complaint in complaints %}
+              <tr>
+                <td><a href="{{ url_for('employee.complaint_detail', complaint_id=complaint.id) }}">{{ complaint.subject }}</a></td>
+                <td>{{ recipient_labels[complaint.recipient_role] }}</td>
+                <td>{{ complaint.created_at|shortdate }}</td>
+                <td><span class="status-pill is-{{ status_key(complaint.status) }}">{{ complaint.status }}</span></td>
+              </tr>
+            {% else %}
+              <tr><td colspan="4" class="empty">{% if filters.active %}No complaints match these filters.{% else %}You have not submitted a complaint.{% endif %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
   </section>
 {% endblock %}

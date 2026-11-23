@@ -89,7 +89,7 @@ def create_alerts(employee, assessment, responses, settings=None):
             explanation = explain(dimension, responses, classification, audience="manager")
             if significant:
                 explanation += (
-                    f" The score also fell by {drop:.2f} from the previous assessment "
+                    f" The score also fell by {drop:.2f} from the previous check-in "
                     f"({previous_score:.2f} to {score:.2f})."
                 )
             alert_classification = classification
@@ -98,7 +98,7 @@ def create_alerts(employee, assessment, responses, settings=None):
             alert_classification = SIGNIFICANT
             explanation = (
                 f"{DIMENSION_LABELS[dimension]} fell by {drop:.2f}, from {previous_score:.2f} "
-                f"to {score:.2f}, since the previous assessment. The current score is still above "
+                f"to {score:.2f}, since the previous check-in. The current score is still above "
                 "the attention line, but the change is large enough to review. This is a prompt for "
                 "a supportive conversation, not a diagnosis or an employment decision."
             )

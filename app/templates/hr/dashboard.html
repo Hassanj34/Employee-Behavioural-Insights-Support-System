@@ -14,7 +14,7 @@
     {% include "partials/filter_bar.html" %}
   {% endwith %}
   <section class="panel">
-    <p class="note">Only complaints routed to your account are listed. Assessment results are not part of this queue. Counts follow the current filters.</p>
+    <p class="note">Only complaints routed to your account are listed. Check-in results are not part of this queue. Counts follow the current filters.</p>
     {% from "partials/complaint_table.html" import complaint_rows with context %}
     {{ complaint_rows(complaints, "hr.complaint_detail", filters.active) }}
   </section>

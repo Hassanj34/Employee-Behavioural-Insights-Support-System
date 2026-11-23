@@ -4,7 +4,7 @@
 {% block heading %}Alert rules{% endblock %}
 {% block content %}
   <section class="panel">
-    <p class="note">These are starting rules for new assessments. They are not diagnostic cut-offs, and they do not rescore assessments already stored. A dimension at or above the positive line is Positive / Balanced. A dimension at or above the attention line, and below the positive line, is Support Recommended and does not open an urgent alert on its own. Anything below the attention line is Attention Required and opens an alert. A drop at least as large as the change amount also opens an alert, even when the new score stays above the attention line.</p>
+    <p class="note">These are starting rules for new check-ins. They are not diagnostic cut-offs, and they do not rescore check-ins already stored. A dimension at or above the positive line is Positive / Balanced. A dimension at or above the attention line, and below the positive line, is Support Recommended and does not open an urgent alert on its own. Anything below the attention line is Attention Required and opens an alert. A drop at least as large as the change amount also opens an alert, even when the new score stays above the attention line.</p>
     <form method="post" class="settings-form">
       {{ form.hidden_tag() }}
       <div class="settings-grid">

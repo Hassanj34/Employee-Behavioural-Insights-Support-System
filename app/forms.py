@@ -48,13 +48,13 @@ def _follow_up(label):
 
 class LoginForm(FlaskForm):
     email = StringField(
-        "Email",
+        "Username",
         validators=[
             DataRequired(),
             Length(max=255),
             Regexp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", message="Enter a valid email address."),
         ],
-        render_kw={"autocomplete": "username", "placeholder": "name@ebiss.local"},
+        render_kw={"autocomplete": "username", "placeholder": "name@systems.local"},
     )
     password = PasswordField(
         "Password",

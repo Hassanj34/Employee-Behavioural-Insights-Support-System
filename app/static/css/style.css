@@ -446,27 +446,51 @@ button, input, select { font: inherit; }
 .later-reading { margin: 1rem 0 0; padding: 0.75rem 0.9rem; border-radius: 0.85rem; background: #f7f3ec; }
 .is-change { color: #1d4e89; background: #e7f1fb; border-color: #c5daf3; }
 
-.login-screen { min-height: 100vh; display: grid; grid-template-columns: 1.05fr 0.95fr; }
+.login-body { background: var(--canvas); }
+.login-screen { min-height: 100vh; display: grid; grid-template-columns: 1.02fr 0.98fr; }
 .login-story {
   background:
-    radial-gradient(circle at 10% 20%, rgba(197, 106, 50, 0.28), transparent 22rem),
+    radial-gradient(circle at 12% 18%, rgba(197, 106, 50, 0.32), transparent 22rem),
     linear-gradient(165deg, #172028, #23484a);
   color: #fff;
-  padding: 4rem;
+  padding: 3.2rem 3.4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.login-story .eyebrow { color: #f0c7ad; }
-.login-story h1 { font-size: 3rem; max-width: 14ch; line-height: 1.05; letter-spacing: -0.03em; }
-.login-story p { max-width: 42ch; color: #d7e4e1; }
-.login-points { padding-left: 1.1rem; color: #f4f7f6; }
-.login-points li { margin: 0.35rem 0; }
-.login-panel { display: flex; align-items: center; justify-content: center; padding: 2rem; }
-.login-card { width: min(480px, 100%); padding: 1.4rem; }
-.login-card h2 { font-size: 1.8rem; margin: 0 0 1rem; }
+.login-brand { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 2rem; }
+.login-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.85rem;
+  display: grid;
+  place-items: center;
+  background: var(--copper);
+  color: #fff;
+  font-weight: 700;
+}
+.login-brand strong { display: block; letter-spacing: 0.08em; font-size: 1.05rem; font-family: var(--serif); font-weight: 600; }
+.login-brand span span { display: block; color: #d5ddd8; font-size: 0.78rem; font-family: var(--sans); }
+.login-story h1 { color: #fff; font-size: 3rem; max-width: 13ch; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 0.9rem; }
+.login-story p { max-width: 36ch; color: #d7e4e1; margin: 0 0 1.4rem; }
+.login-points { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+.login-points li { display: flex; gap: 0.75rem; align-items: flex-start; color: #f4f7f6; }
+.login-points i {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 0.6rem;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f0c7ad;
+  flex: none;
+  margin-top: 0.05rem;
+}
+.login-panel { display: flex; align-items: center; justify-content: center; padding: 2rem 1.5rem; }
+.login-card { width: min(540px, 100%); padding: 1.45rem 1.4rem 1.2rem; }
+.login-card h2 { font-size: 1.8rem; margin: 0; }
+.login-lead { color: var(--muted); margin: 0.2rem 0 1rem; }
 .demo-box { background: #f7f3ec; border-radius: 1rem; padding: 0.9rem; margin-top: 1rem; font-size: 0.86rem; }
-.demo-box code { color: var(--sidebar); }
 .account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 0.7rem; }
 .account-chip {
   text-align: left;
@@ -490,6 +514,30 @@ button, input, select { font: inherit; }
 .account-chip:hover { border-color: var(--accent); background: #f3faf9; }
 .password-field { display: flex; gap: 0.4rem; }
 .password-field .form-control { flex: 1; }
+.complaint-prompt {
+  display: flex;
+  gap: 0.95rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1.15rem;
+  box-shadow: var(--shadow);
+  padding: 1.15rem 1.25rem;
+}
+.complaint-prompt-icon {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 0.9rem;
+  display: grid;
+  place-items: center;
+  background: #f3eefe;
+  color: #7c5cbf;
+  font-size: 1.15rem;
+  flex: none;
+}
+.complaint-prompt h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+.complaint-prompt p { margin: 0 0 0.9rem; color: var(--muted); max-width: 46ch; }
+.complaints-board { margin-top: 2.4rem; }
 
 .empty, .empty-state { padding: 1.3rem; text-align: center; color: var(--muted); }
 dl.meta { display: grid; grid-template-columns: 180px 1fr; gap: 0.5rem 1rem; margin: 0; }
@@ -534,7 +582,8 @@ dl.meta dt { color: var(--muted); }
   }
   .login-screen { grid-template-columns: 1fr; }
   .login-story { padding: 2rem 1.3rem; }
-  .login-story h1 { font-size: 2.1rem; }
+  .login-story h1 { font-size: 2.2rem; }
+  .login-panel { padding: 1.3rem 1rem 2rem; }
   .who-copy { display: none; }
   .who { text-align: right; }
   dl.meta, .account-grid { grid-template-columns: 1fr; }

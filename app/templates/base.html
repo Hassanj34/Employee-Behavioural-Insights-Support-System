@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}EBISS{% endblock %} · EBISS</title>
+  <title>{% block title %}Solace{% endblock %} · Solace</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
@@ -13,19 +13,19 @@
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand">
-        <div class="brand-mark">EB</div>
+        <div class="brand-mark">S</div>
         <div>
-          <strong>EBISS</strong>
-          <span>Behavioural insights and support</span>
+          <strong>Solace</strong>
+          <span>Wellbeing and support</span>
         </div>
       </div>
       <nav class="side-nav">
         {% if current_user.role == "employee" %}
           <a class="{% if request.endpoint == 'employee.dashboard' %}active{% endif %}" href="{{ url_for('employee.dashboard') }}"><i class="bi bi-grid"></i> Dashboard</a>
-          <a class="{% if request.endpoint == 'employee.assessment' %}active{% endif %}" href="{{ url_for('employee.assessment') }}"><i class="bi bi-ui-checks"></i> New Assessment</a>
-          <a class="{% if request.endpoint == 'employee.history' %}active{% endif %}" href="{{ url_for('employee.history') }}"><i class="bi bi-graph-up"></i> Assessment History</a>
+          <a class="{% if request.endpoint == 'employee.assessment' %}active{% endif %}" href="{{ url_for('employee.assessment') }}"><i class="bi bi-ui-checks"></i> New Check-in</a>
+          <a class="{% if request.endpoint == 'employee.history' %}active{% endif %}" href="{{ url_for('employee.history') }}"><i class="bi bi-graph-up"></i> Check-in History</a>
           <a class="{% if request.endpoint in ['employee.complaints', 'employee.complaint_detail'] %}active{% endif %}" href="{{ url_for('employee.complaints') }}"><i class="bi bi-inboxes"></i> My Complaints</a>
-          <a class="{% if request.endpoint == 'employee.submit_complaint' %}active{% endif %}" href="{{ url_for('employee.submit_complaint') }}"><i class="bi bi-send"></i> Submit a Concern</a>
+          <a class="{% if request.endpoint == 'employee.submit_complaint' %}active{% endif %}" href="{{ url_for('employee.submit_complaint') }}"><i class="bi bi-send"></i> Submit a Complaint</a>
           <a class="{% if request.endpoint == 'auth.profile' %}active{% endif %}" href="{{ url_for('auth.profile') }}"><i class="bi bi-person"></i> Profile</a>
         {% elif current_user.role == "manager" %}
           <a class="{% if request.endpoint == 'manager.dashboard' %}active{% endif %}" href="{{ url_for('manager.dashboard') }}"><i class="bi bi-grid"></i> Dashboard</a>
@@ -54,7 +54,7 @@
           <i class="bi bi-list"></i>
         </button>
         <div class="topbar-title">
-          <p class="eyebrow">{% block eyebrow %}EBISS{% endblock %}</p>
+          <p class="eyebrow">{% block eyebrow %}Solace{% endblock %}</p>
           <h1>{% block heading %}Dashboard{% endblock %}</h1>
         </div>
         <div class="who">

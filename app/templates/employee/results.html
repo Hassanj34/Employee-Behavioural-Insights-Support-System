@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Assessment results{% endblock %}
+{% block title %}Check-in results{% endblock %}
 {% block eyebrow %}Employee{% endblock %}
-{% block heading %}Assessment results{% endblock %}
+{% block heading %}Check-in results{% endblock %}
 {% block content %}
   {% with print_title=current_user.name, print_subtitle="Submitted " ~ (assessment.submission_date|shortdate) ~ ". The three indicators are independent. There is no combined score." %}
     {% include "partials/print_heading.html" %}
@@ -31,7 +31,7 @@
           {% for code, question in questions.items() %}
             {% if code in answers %}
             <tr>
-              <td>{{ code }}. {{ question.text }}</td>
+              <td>{{ question.text }}</td>
               <td>{{ likert_labels[answers[code]] }} ({{ answers[code] }})</td>
             </tr>
             {% endif %}

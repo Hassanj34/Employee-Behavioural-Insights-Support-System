@@ -111,6 +111,6 @@ def settings():
         except ValueError as exc:
             flash(str(exc), "danger")
         else:
-            flash("Alert rules saved. New assessments use these rules.", "success")
+            flash("Alert rules saved. New check-ins use these rules.", "success")
             return redirect(url_for("senior_manager.settings"))
     return render_template("senior_manager/settings.html", form=form, settings=current)

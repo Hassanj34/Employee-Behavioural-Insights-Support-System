@@ -14,11 +14,11 @@
   {% endwith %}
   {% if filters.has_dates and not latest %}
     <section class="panel empty-state">
-      <h2>No assessment in this date range.</h2>
+      <h2>No check-in in this date range.</h2>
       <p>Try a wider range, or clear the dates to see your latest check-in.</p>
     </section>
   {% elif latest %}
-    <p class="note">Latest assessment {{ latest.submission_date|shortdate }}</p>
+    <p class="note">Latest check-in {{ latest.submission_date|shortdate }}</p>
     {% include "partials/indicators.html" %}
     {% if recommendations %}
       <section class="panel mt-3">
@@ -32,13 +32,13 @@
     {% endif %}
   {% else %}
     <section class="panel empty-state">
-      <h2>No assessment yet</h2>
+      <h2>No check-in yet</h2>
       <p>Complete the fifteen-question check-in. It usually takes a few minutes.</p>
-      <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">Start assessment</a>
+      <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">Start check-in</a>
     </section>
   {% endif %}
   <div class="row-actions no-print mt-3">
-    <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">New assessment</a>
+    <a class="btn btn-accent" href="{{ url_for('employee.assessment') }}">New check-in</a>
     <a class="btn btn-outline" href="{{ url_for('employee.history') }}">View history</a>
     <a class="btn btn-outline" href="{{ url_for('employee.complaints') }}">Complaints in progress: {{ open_complaints }}</a>
   </div>

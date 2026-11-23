@@ -97,7 +97,7 @@ def test_dashboard_and_history_date_filters(client, ctx):
         "/manager/dashboard",
         query_string={"start": "2026-03-01", "end": "2026-03-31"},
     )
-    assert b"No assessment in this date range." in empty_window.data
+    assert b"No check-in in this date range." in empty_window.data
     assert b"Employee Two" in empty_window.data
 
 

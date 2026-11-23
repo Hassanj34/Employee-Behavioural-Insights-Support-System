@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}New assessment{% endblock %}
+{% block title %}New check-in{% endblock %}
 {% block eyebrow %}Employee{% endblock %}
-{% block heading %}Behavioural assessment{% endblock %}
+{% block heading %}Check-in{% endblock %}
 {% block content %}
-  <p class="note">Answer the fifteen core questions, five in each area. If you disagree with a core question, two follow-up questions appear for that area, and those answers count in that area's score. Higher agreement means a more positive experience. A check-in about once a week is encouraged. Incomplete assessments are not saved.</p>
+  <p class="note">Answer the fifteen core questions, five in each area. If you disagree with a core question, two follow-up questions appear for that area, and those answers count in that area's score. Higher agreement means a more positive experience. A check-in about once a week is encouraged. Incomplete check-ins are not saved.</p>
   <div class="progress-panel">
     <div class="progress-meta">
       <strong id="assessment-progress-label">Section 1 of 3</strong>
@@ -43,7 +43,7 @@
         {% for question in section.questions %}
           {% set field = form[question.code|lower] %}
           <div class="question {% if question.follow_up %}d-none{% endif %} {% if field.errors %}is-invalid{% endif %}" data-follow-up="{{ 'true' if question.follow_up else 'false' }}" data-core="{{ 'false' if question.follow_up else 'true' }}">
-            <p>{% if question.follow_up %}Follow-up{% else %}{{ question.code }}{% endif %}. {{ question.text }}</p>
+            <p>{{ question.text }}</p>
             <div class="likert">
               {% for subfield in field %}
                 <label class="likert-option">
@@ -62,7 +62,7 @@
     <div class="row-actions">
       <button class="btn btn-outline-secondary" id="prev-section" type="button">Previous</button>
       <button class="btn btn-accent" id="next-section" type="button">Next</button>
-      <button class="btn btn-accent d-none" id="submit-assessment" type="submit">Submit assessment</button>
+      <button class="btn btn-accent d-none" id="submit-assessment" type="submit">Submit check-in</button>
     </div>
   </form>
 {% endblock %}

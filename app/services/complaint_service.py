@@ -9,7 +9,7 @@ CATEGORIES = (
     "Project or Role Assignment",
     "Workplace Treatment",
     "Recognition or Fairness",
-    "Other Workplace Concerns",
+    "Other Workplace Complaint",
 )
 
 STATUSES = ("Submitted", "Under Review", "Resolved", "Closed")
