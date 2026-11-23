@@ -16,10 +16,77 @@ def _add_notification_cleared_column():
     if "notifications" not in inspector.get_table_names():
         return
     columns = {column["name"] for column in inspector.get_columns("notifications")}
-    if "cleared_at" in columns:
+    if "cleared_at" in columns or "kind" in columns:
         return
     with db.engine.begin() as connection:
         connection.execute(text("ALTER TABLE notifications ADD COLUMN cleared_at DATETIME"))
+
+
+def _migrate_notifications():
+    """Replace alert-only notifications with a table that can describe any event."""
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(db.engine)
+    if "notifications" not in inspector.get_table_names():
+        return
+    columns = {column["name"] for column in inspector.get_columns("notifications")}
+    if "kind" in columns and "summary" in columns and "href" in columns:
+        return
+    with db.engine.begin() as connection:
+        connection.execute(text(
+            """
+            CREATE TABLE notifications_next (
+                id INTEGER PRIMARY KEY,
+                recipient_id INTEGER NOT NULL,
+                kind VARCHAR(32) NOT NULL,
+                title VARCHAR(200) NOT NULL,
+                summary VARCHAR(255) NOT NULL,
+                body TEXT NOT NULL,
+                href VARCHAR(255) NOT NULL,
+                alert_id INTEGER,
+                complaint_id INTEGER,
+                follow_up_id INTEGER,
+                response_id INTEGER,
+                read_at DATETIME,
+                cleared_at DATETIME,
+                created_at DATETIME NOT NULL,
+                FOREIGN KEY(recipient_id) REFERENCES users (id),
+                FOREIGN KEY(alert_id) REFERENCES alerts (id),
+                FOREIGN KEY(complaint_id) REFERENCES complaints (id),
+                FOREIGN KEY(follow_up_id) REFERENCES follow_up_actions (id),
+                FOREIGN KEY(response_id) REFERENCES complaint_responses (id)
+            )
+            """
+        ))
+        if "alert_id" in columns:
+            cleared = "n.cleared_at" if "cleared_at" in columns else "NULL"
+            connection.execute(text(
+                f"""
+                INSERT INTO notifications_next (
+                    id, recipient_id, kind, title, summary, body, href,
+                    alert_id, read_at, cleared_at, created_at
+                )
+                SELECT
+                    n.id,
+                    n.recipient_id,
+                    'alert',
+                    u.name,
+                    a.dimension || ' · ' || printf('%.2f', a.score) || ' · ' || a.classification,
+                    a.explanation,
+                    '/manager/alerts/' || a.id,
+                    n.alert_id,
+                    n.read_at,
+                    {cleared},
+                    n.created_at
+                FROM notifications AS n
+                JOIN alerts AS a ON a.id = n.alert_id
+                JOIN users AS u ON u.id = a.employee_id
+                """
+            ))
+        connection.execute(text("DROP TABLE notifications"))
+        connection.execute(text("ALTER TABLE notifications_next RENAME TO notifications"))
+        connection.execute(text("CREATE INDEX ix_notifications_recipient_id ON notifications (recipient_id)"))
+        connection.execute(text("CREATE INDEX ix_notifications_alert_id ON notifications (alert_id)"))
 
 
 def create_app(config_class=Config):
@@ -69,10 +136,11 @@ def create_app(config_class=Config):
     @app.context_processor
     def inject_notifications():
         if not current_user.is_authenticated:
-            return {"notifications": []}
-        from app.services.notifications import notifications_for
+            return {"notifications": [], "unread_notifications": 0}
+        from app.services.notifications import notifications_for, unread_count
 
-        return {"notifications": notifications_for(current_user)}
+        notes = notifications_for(current_user)
+        return {"notifications": notes, "unread_notifications": unread_count(notes)}
 
     @app.context_processor
     def inject_labels():
@@ -107,5 +175,9 @@ def create_app(config_class=Config):
 
         db.create_all()
         _add_notification_cleared_column()
+        _migrate_notifications()
+        from app.services.notifications import backfill_event_notifications
+
+        backfill_event_notifications()
 
     return app

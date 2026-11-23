@@ -1,8 +1,8 @@
 from app.extensions import db
 from app.models.alert import Alert
 from app.models.assessment import Assessment, AssessmentResponse
-from app.models.notification import Notification
 from app.services.alert_settings import get_alert_settings
+from app.services.notifications import queue_alert_notification
 from app.services.assessment_engine import (
     ATTENTION,
     DIMENSIONS,
@@ -119,12 +119,6 @@ def create_alerts(employee, assessment, responses, settings=None):
         )
         db.session.add(alert)
         db.session.flush()
-        db.session.add(
-            Notification(
-                recipient_id=employee.manager_id,
-                alert_id=alert.id,
-                created_at=assessment.submission_date,
-            )
-        )
+        queue_alert_notification(alert)
         created.append(alert)
     return created

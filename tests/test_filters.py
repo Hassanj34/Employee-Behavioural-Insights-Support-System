@@ -125,7 +125,7 @@ def test_printable_summary_and_complaint_date_filter(client, ctx):
     client.get("/logout")
     login(client, "hr.one@ebiss.local")
     future = client.get("/hr/dashboard", query_string={"start": "2099-01-01"})
-    assert b"Promotion decision concern" not in future.data
+    assert b"Promotion decision concern" not in _without_notifications(future)
     assert b"No complaints match these filters." in future.data
     current = client.get("/hr/dashboard", query_string={"status": "Submitted"})
     assert b"Promotion decision concern" in current.data

@@ -40,6 +40,32 @@
     notifyButton.setAttribute("aria-expanded", "false");
   }
 
+  function markNotificationsRead() {
+    const badge = notifyButton.querySelector(".notify-badge");
+    if (!badge) return;
+    const token = document.querySelector('meta[name="csrf-token"]');
+    const hidden = notifyButton.querySelector(".visually-hidden");
+    badge.remove();
+    if (hidden) hidden.textContent = "Notifications";
+    fetch("/notifications/read", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": token ? token.content : "",
+        "Accept": "application/json",
+      },
+    }).then(function (response) {
+      if (!response.ok) {
+        notifyButton.insertBefore(badge, hidden);
+        return;
+      }
+      notifyPanel.querySelectorAll(".notify-item.is-unread").forEach(function (item) {
+        item.classList.remove("is-unread");
+      });
+    }).catch(function () {
+      notifyButton.insertBefore(badge, hidden);
+    });
+  }
+
   function clearNotifications() {
     const token = document.querySelector('meta[name="csrf-token"]');
     const clearButton = document.getElementById("notify-clear");
@@ -78,6 +104,7 @@
       if (willOpen) {
         notifyPanel.hidden = false;
         notifyButton.setAttribute("aria-expanded", "true");
+        markNotificationsRead();
       } else {
         closeNotifications();
       }

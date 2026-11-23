@@ -16,6 +16,7 @@ from app.query_filters import (
     text_match,
 )
 from app.services.alert_service import FOLLOW_UP_TO_ALERT
+from app.services.notifications import queue_follow_up, queue_follow_up_review
 from app.services.recommendation_engine import recommendations_for_classifications
 from app.services.alert_settings import get_alert_settings
 from app.services.assessment_engine import (
@@ -295,6 +296,8 @@ def record_follow_up(alert_id):
         )
         alert.status = FOLLOW_UP_TO_ALERT[form.status.data]
         db.session.add(action)
+        db.session.flush()
+        queue_follow_up(action)
         db.session.commit()
         flash("Follow-up recorded.", "success")
         return redirect(url_for("manager.alert_detail", alert_id=alert.id))
@@ -324,6 +327,7 @@ def review_follow_up(alert_id, action_id):
         action.usefulness = usefulness
         action.usefulness_note = note or None
         action.reviewed_at = utcnow()
+        queue_follow_up_review(action)
         db.session.commit()
         flash("Usefulness review saved.", "success")
     return redirect(url_for("manager.alert_detail", alert_id=alert.id))

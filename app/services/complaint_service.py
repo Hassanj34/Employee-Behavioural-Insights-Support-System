@@ -1,6 +1,7 @@
 from app.extensions import db
 from app.models.complaint import Complaint, ComplaintResponse
 from app.models.user import User
+from app.services.notifications import queue_complaint_submitted, queue_complaint_update
 from app.timeutil import utcnow
 
 CATEGORIES = (
@@ -67,6 +68,8 @@ def submit_complaint(employee, recipient_role, category, subject, description):
         updated_at=now,
     )
     db.session.add(complaint)
+    db.session.flush()
+    queue_complaint_submitted(complaint)
     db.session.commit()
     return complaint, None
 
@@ -80,12 +83,13 @@ def add_complaint_update(complaint, responder, status, response_text):
     now = utcnow()
     complaint.status = status
     complaint.updated_at = now
-    db.session.add(
-        ComplaintResponse(
-            complaint_id=complaint.id,
-            responder_id=responder.id,
-            response_text=text,
-            created_at=now,
-        )
+    response = ComplaintResponse(
+        complaint_id=complaint.id,
+        responder_id=responder.id,
+        response_text=text,
+        created_at=now,
     )
+    db.session.add(response)
+    db.session.flush()
+    queue_complaint_update(complaint, responder, status, text, response)
     db.session.commit()
