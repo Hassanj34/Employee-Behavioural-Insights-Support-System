@@ -105,7 +105,7 @@ To start over, stop the server with `Ctrl+C`, delete `instance/application.db`, 
 
 ## Accounts
 
-Every seeded account uses the password `Demo@2026`. On the sign-in page, choosing a name fills the email and password.
+Every seeded account uses the password `Demo@2026`. Sign in with the email and that password.
 
 The organization is Systems Limited, Karachi. The people are demonstration accounts.
 
