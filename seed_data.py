@@ -89,12 +89,20 @@ def seed():
         print("Seed data already present. Nothing added.")
         return
 
+    zara = _add_user(
+        "Zara Qureshi",
+        "zara.qureshi@systems.local",
+        "senior_manager",
+        "Corporate Office",
+        "Director, Karachi",
+    )
     imran = _add_user(
         "Imran Sheikh",
         ANCHOR_EMAIL,
         "manager",
         "Digital Services",
         "Delivery Manager",
+        zara,
     )
     hira = _add_user(
         "Hira Baig",
@@ -102,6 +110,7 @@ def seed():
         "manager",
         "Banking Solutions",
         "Delivery Manager",
+        zara,
     )
     nadia = _add_user(
         "Nadia Hussain",
@@ -109,13 +118,6 @@ def seed():
         "hr",
         "People and Culture",
         "HR Business Partner",
-    )
-    zara = _add_user(
-        "Zara Qureshi",
-        "zara.qureshi@systems.local",
-        "senior_manager",
-        "Corporate Office",
-        "Director, Karachi",
     )
     ayesha = _add_user(
         "Ayesha Khan",

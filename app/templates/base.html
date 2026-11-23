@@ -26,19 +26,22 @@
           <a class="{% if request.endpoint == 'employee.history' %}active{% endif %}" href="{{ url_for('employee.history') }}"><i class="bi bi-graph-up"></i> Assessment History</a>
           <a class="{% if request.endpoint in ['employee.complaints', 'employee.complaint_detail'] %}active{% endif %}" href="{{ url_for('employee.complaints') }}"><i class="bi bi-inboxes"></i> My Complaints</a>
           <a class="{% if request.endpoint == 'employee.submit_complaint' %}active{% endif %}" href="{{ url_for('employee.submit_complaint') }}"><i class="bi bi-send"></i> Submit a Concern</a>
-          <a class="{% if request.endpoint == 'employee.profile' %}active{% endif %}" href="{{ url_for('employee.profile') }}"><i class="bi bi-person"></i> Profile</a>
+          <a class="{% if request.endpoint == 'auth.profile' %}active{% endif %}" href="{{ url_for('auth.profile') }}"><i class="bi bi-person"></i> Profile</a>
         {% elif current_user.role == "manager" %}
           <a class="{% if request.endpoint == 'manager.dashboard' %}active{% endif %}" href="{{ url_for('manager.dashboard') }}"><i class="bi bi-grid"></i> Dashboard</a>
           <a class="{% if request.endpoint in ['manager.employees', 'manager.employee_detail', 'manager.employee_history'] %}active{% endif %}" href="{{ url_for('manager.employees') }}"><i class="bi bi-people"></i> Employees</a>
           <a class="{% if request.endpoint in ['manager.alerts', 'manager.alert_detail'] %}active{% endif %}" href="{{ url_for('manager.alerts') }}"><i class="bi bi-exclamation-triangle"></i> Alerts</a>
           <a class="{% if request.endpoint == 'manager.follow_ups' %}active{% endif %}" href="{{ url_for('manager.follow_ups') }}"><i class="bi bi-clipboard-check"></i> Follow-up Actions</a>
+          <a class="{% if request.endpoint == 'auth.profile' %}active{% endif %}" href="{{ url_for('auth.profile') }}"><i class="bi bi-person"></i> Profile</a>
         {% elif current_user.role == "hr" %}
           <a class="{% if request.endpoint == 'hr.dashboard' %}active{% endif %}" href="{{ url_for('hr.dashboard') }}"><i class="bi bi-grid"></i> Dashboard</a>
           <a class="{% if request.endpoint in ['hr.complaints', 'hr.complaint_detail'] %}active{% endif %}" href="{{ url_for('hr.complaints') }}"><i class="bi bi-inboxes"></i> Complaints</a>
+          <a class="{% if request.endpoint == 'auth.profile' %}active{% endif %}" href="{{ url_for('auth.profile') }}"><i class="bi bi-person"></i> Profile</a>
         {% elif current_user.role == "senior_manager" %}
           <a class="{% if request.endpoint == 'senior_manager.dashboard' %}active{% endif %}" href="{{ url_for('senior_manager.dashboard') }}"><i class="bi bi-grid"></i> Dashboard</a>
           <a class="{% if request.endpoint in ['senior_manager.complaints', 'senior_manager.complaint_detail'] %}active{% endif %}" href="{{ url_for('senior_manager.complaints') }}"><i class="bi bi-inboxes"></i> Complaints</a>
           <a class="{% if request.endpoint == 'senior_manager.settings' %}active{% endif %}" href="{{ url_for('senior_manager.settings') }}"><i class="bi bi-sliders"></i> Alert Rules</a>
+          <a class="{% if request.endpoint == 'auth.profile' %}active{% endif %}" href="{{ url_for('auth.profile') }}"><i class="bi bi-person"></i> Profile</a>
         {% endif %}
         <a class="logout" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"></i> Logout</a>
       </nav>

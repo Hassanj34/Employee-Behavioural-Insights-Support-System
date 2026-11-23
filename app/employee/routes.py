@@ -183,7 +183,3 @@ def complaint_detail(complaint_id):
     return render_template("employee/complaint_detail.html", complaint=complaint)
 
 
-@employee_bp.route("/profile")
-@role_required("employee")
-def profile():
-    return render_template("employee/profile.html")

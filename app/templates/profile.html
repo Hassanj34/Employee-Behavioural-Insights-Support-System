@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
-{% block eyebrow %}Employee{% endblock %}
+{% block eyebrow %}{{ role_labels[current_user.role] }}{% endblock %}
 {% block heading %}Profile{% endblock %}
 {% block content %}
   <section class="panel">
     <dl class="meta">
       <dt>Name</dt><dd>{{ current_user.name }}</dd>
       <dt>Email</dt><dd>{{ current_user.email }}</dd>
+      <dt>Role</dt><dd>{{ role_labels[current_user.role] }}</dd>
       <dt>Department</dt><dd>{{ current_user.department or "—" }}</dd>
       <dt>Designation</dt><dd>{{ current_user.designation or "—" }}</dd>
-      <dt>Manager</dt><dd>{{ current_user.manager.name if current_user.manager else "—" }}</dd>
+      {% if current_user.role not in ["hr", "senior_manager"] %}
+        <dt>Manager</dt><dd>{{ current_user.manager.name if current_user.manager else "—" }}</dd>
+      {% endif %}
     </dl>
   </section>
 {% endblock %}

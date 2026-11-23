@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from app.extensions import db
 from app.forms import LoginForm
@@ -35,6 +35,12 @@ def login():
                 return redirect(next_url)
             return redirect(url_for(DASHBOARD_ENDPOINTS[user.role]))
     return render_template("auth/login.html", form=form)
+
+
+@auth_bp.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html")
 
 
 @auth_bp.route("/logout")
